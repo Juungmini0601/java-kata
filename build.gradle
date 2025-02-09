@@ -3,11 +3,20 @@ plugins {
     id("org.springframework.boot") version "3.4.2"
     id("io.spring.dependency-management") version "1.1.7"
 }
+// 루트 모듈은 Jar를 생성하지 않는다
+bootJar.enabled = false
 
 subprojects {
 
     group = 'io.kata.java'
     version = '0.0.1-SNAPSHOT'
+
+    // FIXME 루트 프로젝트에 넣긴 싫은데 일단..
+    buildscript {
+        ext {
+            jooqVersion = '3.19.5'
+        }
+    }
 
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
