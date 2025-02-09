@@ -1,0 +1,18 @@
+spring:
+  jooq:
+    sql-dialect: MySQL
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/java_kata
+    username: root
+    password: qwer1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    org:
+      jooq:
+        tools:
+          LoggerListener: DEBUG
+      springframework:
+        transaction: DEBUG

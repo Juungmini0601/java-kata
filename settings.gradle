@@ -1,2 +1,4 @@
 rootProject.name = 'java-kata'
+include 'java-kata-core'
+include 'jooq-custom'
 
