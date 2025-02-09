@@ -1,0 +1,95 @@
+import org.jooq.meta.jaxb.*
+
+plugins {
+    id 'dev.monosoul.jooq-docker' version '6.0.14'
+}
+
+// 라이브러리 형태로 사용 할 모듈
+bootJar.enabled = false
+jar.enabled = true
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/java", "src/generated"]
+        }
+    }
+}
+
+jooq {
+    version = "${jooqVersion}"
+    withContainer {
+        image {
+            name = "mysql:8.0.29"
+            envVars = [
+                    MYSQL_ROOT_PASSWORD: "qwer1234",
+                    MYSQL_DATABASE     : "java_kata"
+            ]
+        }
+
+        db {
+            username = "root"
+            password = "qwer1234"
+            name = "java_kata"
+            port = 3306
+            jdbc {
+                schema = "jdbc:mysql"
+                driverClassName = "com.mysql.cj.jdbc.Driver"
+            }
+        }
+    }
+}
+
+tasks {
+    generateJooqClasses {
+        schemas.set(["java_kata"])
+        outputDirectory.set(project.layout.projectDirectory.dir("src/generated"))
+        includeFlywayTable.set(false)
+
+        usingJavaConfig {
+            generate = new Generate()
+                    .withJavaTimeTypes(true)
+                    .withDeprecated(false)
+                    .withDaos(true)
+                    .withFluentSetters(true)
+                    .withRecords(false)
+
+            withStrategy(
+                    new Strategy().withName("io.kata.java.jooq.custom.JPrefixGeneratorStrategy")
+            )
+
+            database.withForcedTypes(
+                    new ForcedType()
+                            .withUserType("java.lang.Long")
+                            .withTypes("int unsigned"),
+                    new ForcedType()
+                            .withUserType("java.lang.Integer")
+                            .withTypes("tinyint unsigned"),
+                    new ForcedType()
+                            .withUserType("java.lang.Integer")
+                            .withTypes("smallint unsigned")
+            )
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jooq:jooq:${jooqVersion}"
+    implementation('org.springframework.boot:spring-boot-starter-jooq') {
+        exclude group: 'org.jooq'
+    }
+
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    jooqCodegen project(':jooq-custom')
+    jooqCodegen "org.jooq:jooq:${jooqVersion}"
+    jooqCodegen "org.jooq:jooq-meta:${jooqVersion}"
+    jooqCodegen "org.jooq:jooq-codegen:${jooqVersion}"
+
+    jooqCodegen 'org.flywaydb:flyway-core:10.8.1'
+    jooqCodegen 'org.flywaydb:flyway-mysql:10.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}

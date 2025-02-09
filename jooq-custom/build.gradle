@@ -1,0 +1,11 @@
+bootJar.enabled = false
+jar.enabled = true
+
+dependencies {
+    implementation "org.jooq:jooq-codegen:${jooqVersion}"
+    runtimeOnly 'com.mysql:mysql-connector-j:8.2.0'
+}
+
+test {
+    useJUnitPlatform()
+}
