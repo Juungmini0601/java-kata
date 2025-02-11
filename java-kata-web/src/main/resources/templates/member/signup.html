@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<!-- ~{::link}는 모든 link를 선택하는 한다. -->
+<!-- 링크 말고 셀렉터를 넣어서 선택 가능 ~{::div} ::#myId}  ~{::.myClass}-->
+<head th:replace="~{layout/base :: head('Java Kata 회원가입', ~{::link})}">
+  <link rel="stylesheet" href="/css/signup.css">
+</head>
+
+<body class="p-4">
+
+<div class="root">
+
+  <!-- 회원 가입 하얀 박스 -->
+  <form class="signup__form">
+    <div class="signup__form__content">
+      <!--  로고  -->
+      <!--  페이지 제목 및 설명   -->
+      <div class=".signup__form__content__title">
+        <h2>회원 가입</h2>
+        <p class="text-body-tertiary">지금 가입하고 무료로 이용 해보세요.</p>
+      </div>
+      <!--  Email    -->
+      <div class="mb-3"><label for="email" class="form-label fw-bold">Email</label>
+        <div class="signup__form__email__input__box">
+          <input type="email" class="form-control " id="email" placeholder="name@example.com">
+          <button type="button" class="btn btn-orange">인증 요청</button>
+        </div>
+      </div>
+      <!--  TODO 인증번호 입력 란     -->
+      <!--  Password    -->
+      <div class="mb-3"><label for="password" class="form-label fw-bold">Password</label>
+        <div class="signup__form__password__input__box">
+          <input type="password" class="form-control " id="password">
+        </div>
+      </div>
+      <!--  Password  Confirm  -->
+      <div class="mb-3"><label for="password_confirm" class="form-label fw-bold">Password Confirm</label>
+        <div class="signup__form__password__confirm__input__box">
+          <input type="password" class="form-control " id="password_confirm">
+        </div>
+      </div>
+      <!--  Nick Name -->
+      <div class="mb-3"><label for="nickname" class="form-label fw-bold">Nickname</label>
+        <div class="signup__form__nickname__input__box">
+          <input type="password" class="form-control " id="nickname">
+        </div>
+      </div>
+      <!-- 회원 가입 버튼 -->
+      <div class="mb-3">
+        <button type="submit" class="btn btn-orange submit">회원 가입</button>
+      </div>
+    </div>
+
+  </form>
+
+  <th:block th:replace="~{layout/base :: footer}"/>
+
+</div>
+
+
+<th:block th:replace="~{layout/base :: script}"/>
+</body>
+</html>
