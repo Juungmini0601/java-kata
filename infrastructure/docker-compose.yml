@@ -13,5 +13,15 @@ services:
       MYSQL_DATABASE: java_kata
     command:
       [ 'mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--lower_case_table_names=1' ]
+
+  java-kata-redis:
+    image: redis:7.2
+    ports:
+      - '6379:6379'
+    volumes:
+      - java_kata_redis_volume:/data
+    command: redis-server --requirepass qwer1234 --appendonly yes
+
 volumes:
   java_kata_mysql_volume:
+  java_kata_redis_volume:
