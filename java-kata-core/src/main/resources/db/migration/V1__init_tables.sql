@@ -1,6 +1,6 @@
 CREATE TABLE `users`
 (
-    `id`                BIGINT PRIMARY KEY,
+    `id`                BIGINT PRIMARY KEY AUTO_INCREMENT,
     `email`             VARCHAR(255) UNIQUE,
     `password`          VARCHAR(255)           NOT NULL,
     `nickname`          VARCHAR(255)           NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE `users`
 
 CREATE TABLE `problems`
 (
-    `id`          BIGINT PRIMARY KEY,
+    `id`          BIGINT PRIMARY KEY AUTO_INCREMENT,
     `title`       VARCHAR(255) NOT NULL,
     `difficulty`  ENUM ('EASY', 'MEDIUM', 'HARD') UNIQUE,
     `description` TEXT         NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE `problems`
 
 CREATE TABLE `categories`
 (
-    `id`          BIGINT PRIMARY KEY,
+    `id`          BIGINT PRIMARY KEY AUTO_INCREMENT,
     `name`        VARCHAR(255) NOT NULL UNIQUE,
     `description` VARCHAR(255) NOT NULL,
     `created_at`  DATETIME DEFAULT NOW(),
@@ -37,14 +37,14 @@ CREATE TABLE `categories`
 
 CREATE TABLE `tags`
 (
-    `id`          BIGINT PRIMARY KEY,
+    `id`          BIGINT PRIMARY KEY AUTO_INCREMENT,
     `name`        VARCHAR(50) NOT NULL UNIQUE,
     `category_id` BIGINT      NOT NULL
 );
 
 CREATE TABLE `submission`
 (
-    `id`             BIGINT PRIMARY KEY,
+    `id`             BIGINT PRIMARY KEY AUTO_INCREMENT,
     `user_id`        BIGINT NOT NULL,
     `problem_id`     BIGINT NOT NULL,
     `status`         ENUM ('PENDING', 'RUNNING', 'SUCCESS', 'FAILED', 'TIME_EXCEED', 'MEMORY_EXCEED', 'COMPILE_ERROR', 'RUNTIME_ERROR', 'INTERNAL_ERROR'),
