@@ -1,7 +1,11 @@
 dependencies {
-    // thymeleaf, MVC
+    // thymeleaf, MVC, Validation
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Security
+    implementation("org.springframework.boot:spring-boot-starter-security")
 
     implementation project(':java-kata-core')
     // dev-tools
