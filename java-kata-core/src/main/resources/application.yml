@@ -8,6 +8,12 @@ spring:
     password: qwer1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 3000
+
 logging:
   level:
     org:
