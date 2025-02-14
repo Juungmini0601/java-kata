@@ -1,4 +1,6 @@
-import org.jooq.meta.jaxb.*
+import org.jooq.meta.jaxb.ForcedType
+import org.jooq.meta.jaxb.Generate
+import org.jooq.meta.jaxb.Strategy
 
 plugins {
     id 'dev.monosoul.jooq-docker' version '6.0.14'
@@ -74,6 +76,16 @@ tasks {
 }
 
 dependencies {
+    // Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // Jackson
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    // Mailgun
+    implementation 'com.mailgun:mailgun-java:1.1.4'
+
+
+    // Jooq
     implementation "org.jooq:jooq:${jooqVersion}"
     implementation('org.springframework.boot:spring-boot-starter-jooq') {
         exclude group: 'org.jooq'
