@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<!-- ~{::link}는 모든 link를 선택하는 한다. -->
+<!-- 링크 말고 셀렉터를 넣어서 선택 가능 ~{::div} ::#myId}  ~{::.myClass}-->
+<head th:replace="~{layout/base :: head('Java Kata 회원가입', ~{::link})}">
+  <link rel="stylesheet" href="/css/signup.css">
+</head>
+
+<body class="p-4">
+
+<div class="root">
+
+  <!-- 회원 가입 하얀 박스 -->
+  <form class="signup__form" th:action="@{/user/signup}" th:object="${signUpRequest}" method="post">
+    <div class="signup__form__content">
+      <!--  로고  -->
+      <!--  페이지 제목 및 설명   -->
+      <div class=".signup__form__content__title">
+        <h2>회원 가입</h2>
+        <p class="text-body-tertiary">지금 가입하고 무료로 이용 해보세요.</p>
+      </div>
+      <!--  Email    -->
+      <div class="mb-3"><label for="email" class="form-label fw-bold">Email</label>
+        <div class="signup__form__email__input__box">
+          <!-- Email Field -->
+          <input type="email" class="form-control " th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"
+                 id="email" th:field="*{email}" placeholder="name@example.com">
+          <!-- 인증 버튼  -->
+          <button type="button" class="btn btn-orange" id="send-verification-code-btn">인증 요청</button>
+        </div>
+        <!--  Email Error Field -->
+        <span class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+      </div>
+      <!--  인증번호 입력 란     -->
+      <div class="mb-3 hidden" id="verification-code-section">
+        <label for="verification-code" class="form-label fw-bold">인증번호</label>
+        <div class="signup__form__email__input__box">
+          <input type="text" class="form-control" id="verification-code" placeholder="인증번호 6자리를 입력하세요">
+          <button type="button" class="btn btn-orange" id="check-verification-code-btn">확인</button>
+        </div>
+      </div>
+      <!--  Password    -->
+      <div class="mb-3"><label for="password" class="form-label fw-bold">Password</label>
+        <div class="signup__form__password__input__box">
+          <input type="password" class="form-control" th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"
+                 id="password" th:field="*{password}">
+          <span class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        </div>
+      </div>
+      <!--  Password  Confirm  -->
+      <div class="mb-3"><label for="passwordConfirm" class="form-label fw-bold">Password Confirm</label>
+        <div class="signup__form__password__confirm__input__box">
+          <input id="passwordConfirm" type="password" class="form-control"
+                 th:classappend="${#fields.hasErrors('passwordConfirm')} ? 'is-invalid'"
+                 th:field="*{passwordConfirm}">
+          <span class="invalid-feedback" th:if="${#fields.hasErrors('passwordConfirm')}"
+                th:errors="*{passwordConfirm}"></span>
+        </div>
+      </div>
+      <!--  Nick Name -->
+      <div class="mb-3"><label for="nickname" class="form-label fw-bold">Nickname</label>
+        <div class="signup__form__nickname__input__box">
+          <input id="nickname" type="text" class="form-control"
+                 th:classappend="${#fields.hasErrors('nickname')} ? 'is-invalid'"
+                 th:field="*{nickname}">
+          <span class="invalid-feedback" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}"></span>
+        </div>
+      </div>
+      <!-- 회원 가입 버튼 -->
+      <div class="mb-3">
+        <button id="submit-btn" type="submit" class="btn btn-orange submit" disabled>회원 가입</button>
+      </div>
+    </div>
+
+  </form>
+
+  <th:block th:replace="~{layout/base :: footer}"/>
+
+</div>
+
+
+<th:block th:replace="~{layout/base :: script}"/>
+<script src="/script/signupform.js"></script>
+</body>
+</html>
