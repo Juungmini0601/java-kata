@@ -4,6 +4,7 @@ import org.jooq.meta.jaxb.Strategy
 
 plugins {
     id 'dev.monosoul.jooq-docker' version '6.0.14'
+    id 'java-library'
 }
 
 // 라이브러리 형태로 사용 할 모듈
@@ -85,9 +86,10 @@ dependencies {
     implementation 'com.mailgun:mailgun-java:1.1.4'
 
 
+    // TODO Implementation의 차이와 api로 선언 해야 했던 이유 블로깅
     // Jooq
-    implementation "org.jooq:jooq:${jooqVersion}"
-    implementation('org.springframework.boot:spring-boot-starter-jooq') {
+    api "org.jooq:jooq:${jooqVersion}"
+    api('org.springframework.boot:spring-boot-starter-jooq') {
         exclude group: 'org.jooq'
     }
 
