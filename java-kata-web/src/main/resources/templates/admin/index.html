@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<!-- ~{::link}는 모든 link를 선택하는 한다. -->
+<!-- 링크 말고 셀렉터를 넣어서 선택 가능 ~{::div} ::#myId}  ~{::.myClass}-->
+<head th:replace="~{layout/base :: head('Java Kata 어드민 페이지', ~{::link})}">
+  <link rel="stylesheet" href="/css/admin/index.css">
+</head>
+<body>
+
+<th:block th:replace="~{layout/base :: header}"/>
+
+<div class="root">
+  <aside class="sidebar">
+    <ul>
+      <li>
+        <a href="/admin/category/index">카테고리 관리</a>
+      </li>
+      <li>
+        <a href="/admin/problem/index">
+          문제 관리
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <section class="content">
+
+    좌측에서 메뉴를 선택 해주세요!
+  </section>
+
+</div>
+
+
+<th:block th:replace="~{layout/base :: footer}"/>
+
+</body>
+<th:block th:replace="~{layout/base :: script}"/>
+
+</html>
