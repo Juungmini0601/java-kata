@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<!-- ~{::link}는 모든 link를 선택하는 한다. -->
+<!-- 링크 말고 셀렉터를 넣어서 선택 가능 ~{::div} ::#myId}  ~{::.myClass}-->
+<head th:replace="~{layout/base :: head('Java Kata 어드민 페이지', ~{::link})}">
+  <link rel="stylesheet" href="/css/admin/index.css">
+</head>
+<body>
+
+<th:block th:replace="~{layout/base :: header}"/>
+
+<div class="root">
+  <aside class="sidebar">
+    <ul>
+      <li>
+        <a href="/admin/category/index">카테고리 관리</a>
+      </li>
+      <li>
+        <a href="/admin/problem/index">
+          문제 관리
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <section class="content p-5">
+
+    <div class="category-create-btn-section">
+      <button class="btn-orange">카테고리 생성</button>
+    </div>
+    <!-- Category List   -->
+    <table class="category-table table table-bordered">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">name</th>
+        <th scope="col">description</th>
+        <th scope="col">수정</th>
+        <th scope="col">삭제</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="category: ${categories}" th:scope="row">
+        <td th:text="${category.id}">1</td>
+        <td th:text="${category.name}">이름</td>
+        <td th:text="${category.description}">설명</td>
+        <td>
+          <button class="btn-orange">수정</button>
+        </td>
+        <td>
+          <button class="btn-orange">삭제</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+</div>
+
+
+<th:block th:replace="~{layout/base :: footer}"/>
+
+</body>
+<th:block th:replace="~{layout/base :: script}"/>
+
+</html>
