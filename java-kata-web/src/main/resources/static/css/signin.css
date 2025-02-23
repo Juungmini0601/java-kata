@@ -30,25 +30,6 @@ body {
     justify-content: space-between;
 }
 
-.btn-orange {
-    background-color: #ff6600;
-    color: #fff;
-    min-width: 90px;
-    margin-left: 24px;
-}
-
-.btn-orange:hover {
-    background-color: #ff751a;
-    color: #fff;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 2px 4px rgba(255, 102, 0, 0.3);
-}
-
-.btn-orange.submit {
-    margin: 0;
-    width: 100%;
-}
-
 .footer {
     color: #fff;
     text-align: center;
