@@ -38,6 +38,7 @@
 .top-menu {
     display: flex;
     justify-content: end;
+    gap: 1rem;
     width: 100%;
     margin-bottom: 1.25rem;
 }

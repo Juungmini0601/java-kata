@@ -48,4 +48,8 @@ public class CategoryService {
 
 		categoryCommand.updateOne(categories);
 	}
+
+	public void delete(Long id) {
+		categoryCommand.deleteOne(id);
+	}
 }

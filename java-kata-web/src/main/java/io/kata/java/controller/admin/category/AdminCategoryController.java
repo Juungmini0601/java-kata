@@ -86,4 +86,13 @@ public class AdminCategoryController {
 
 		return "redirect:/admin/category/index";
 	}
+
+	// /admin/category/{id}/delete admin/category/1/delete/
+
+	@PostMapping("/admin/category/{id}/delete")
+	public String delete(@PathVariable(name = "id") Long id) {
+		categoryService.delete(id);
+
+		return "redirect:/admin/category/index";
+	}
 }

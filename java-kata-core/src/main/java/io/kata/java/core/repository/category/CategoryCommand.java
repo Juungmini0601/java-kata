@@ -38,4 +38,11 @@ public class CategoryCommand {
 			.returning()
 			.fetchOneInto(Categories.class);
 	}
+
+	@Transactional
+	public void deleteOne(Long id) {
+		dslContext.deleteFrom(CATEGORY)
+			.where(CATEGORY.ID.eq(id))
+			.execute();
+	}
 }
