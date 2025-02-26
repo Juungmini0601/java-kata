@@ -5,9 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import io.kata.java.controller.admin.category.request.CreateCategoryRequest;
+import io.kata.java.controller.admin.category.request.UpdateCategoryRequest;
 import io.kata.java.service.category.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +53,36 @@ public class AdminCategoryController {
 		}
 
 		categoryService.create(createCategoryRequest.name(), createCategoryRequest.description());
+
+		return "redirect:/admin/category/index";
+	}
+
+	@GetMapping("/admin/category/{id}/updateForm")
+	public String updateForm(@PathVariable(name = "id") Long id, Model model) {
+		model.addAttribute("updateCategoryRequest", categoryService.findById(id));
+
+		return "admin/category/updateForm";
+	}
+
+	@PostMapping("/admin/category/update")
+	public String update(
+		// TODO ModelAttribute와 BindingResult 파라미터 순서 블로깅
+		@Valid @ModelAttribute("updateCategoryRequest") UpdateCategoryRequest updateCategoryRequest,
+		BindingResult bindingResult,
+		Model model) {
+
+		if (bindingResult.hasErrors()) {
+			log.error("Validation error: {}", bindingResult.getAllErrors());
+			// th:object와 Model Attribute가 매핑 되지 않아서 버그 생김
+			model.addAttribute("category", updateCategoryRequest);
+			return "admin/category/updateForm";
+		}
+
+		categoryService.update(
+			updateCategoryRequest.id(),
+			updateCategoryRequest.name(),
+			updateCategoryRequest.description()
+		);
 
 		return "redirect:/admin/category/index";
 	}

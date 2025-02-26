@@ -28,4 +28,14 @@ public class CategoryCommand {
 			.returningResult(CATEGORY.ID)
 			.fetchOneInto(Long.class);
 	}
+
+	@Transactional
+	public Categories updateOne(Categories category) {
+		return dslContext.update(CATEGORY)
+			.set(CATEGORY.NAME, category.getName())
+			.set(CATEGORY.DESCRIPTION, category.getDescription())
+			.where(CATEGORY.ID.eq(category.getId()))
+			.returning()
+			.fetchOneInto(Categories.class);
+	}
 }
