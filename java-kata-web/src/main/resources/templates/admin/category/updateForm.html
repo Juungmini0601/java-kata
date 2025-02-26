@@ -5,6 +5,7 @@
 <head th:replace="~{layout/base :: head('Java Kata 어드민 페이지', ~{::link})}">
   <link rel="stylesheet" href="/css/admin/category/global.css">
   <link rel="stylesheet" href="/css/admin/category/form/commonForm.css">
+  <link rel="stylesheet" href="/css/admin/category/form/updateForm.css">
 </head>
 <body>
 
@@ -32,6 +33,12 @@
       <a href="/admin/category/index" class="category-btn btn-orange">
         카테고리 목록
       </a>
+      <form class="delete-btn-form" th:action="@{/admin/category/{id}/delete(id=${updateCategoryRequest.id})}"
+            method="post">
+        <!--        HTTP DELETE 메서드 사용을 위한 hidden input -->
+        <!--        <input type="hidden" name="_method" value="delete"/>-->
+        <button type="submit" class="btn btn-light">삭제</button>
+      </form>
     </div>
     <!-- 카테고리 생성 폼   -->
     <form class="category-form" th:action="@{/admin/category/update}" th:object="${updateCategoryRequest}"
