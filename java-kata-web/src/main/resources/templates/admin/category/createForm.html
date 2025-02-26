@@ -34,7 +34,7 @@
       </a>
     </div>
     <!-- 카테고리 생성 폼   -->
-    <form class="create-category-form" th:action="@{/admin/category}" th:object="${createCategoryRequest}"
+    <form class="create-category-form" th:action="@{/admin/category/create}" th:object="${createCategoryRequest}"
           method="post">
       <div>
         <!--  페이지 제목 및 설명   -->
@@ -43,27 +43,30 @@
         </div>
         <!--  Name    -->
         <div class="mb-3"><label for="name" class="form-label fw-bold">Name</label>
-          <div class="">
+          <div class="input__box">
             <!-- Name Field -->
             <input class="form-control " id="name" th:field="*{name}" placeholder="Java I/O"
                    th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'"
             />
+            <!--  Name Error Field -->
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
           </div>
-          <!--  Name Error Field -->
-          <span class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
         </div>
 
         <!--  Description    -->
         <div class="mb-3"><label for="name" class="form-label fw-bold">Description</label>
-          <div class="">
+          <div class="input__box">
             <!-- Description Field -->
             <input class="form-control " id="description" th:field="*{description}"
                    placeholder="자바의 I/O를 담당하는 Stream을 학습 해봅시다!"
                    th:classappend="${#fields.hasErrors('description')} ? 'is-invalid'"
             />
+            <!--  Description Error Field -->
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('description')}"
+                  th:errors="*{description}"></span>
           </div>
-          <!--  Description Error Field -->
-          <span class="invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+
         </div>
 
         <!-- 회원 가입 버튼 -->
