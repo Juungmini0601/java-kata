@@ -3,6 +3,7 @@
 <!-- ~{::link}는 모든 link를 선택하는 한다. -->
 <!-- 링크 말고 셀렉터를 넣어서 선택 가능 ~{::div} ::#myId}  ~{::.myClass}-->
 <head th:replace="~{layout/base :: head('Java Kata 어드민 페이지', ~{::link})}">
+  <link rel="stylesheet" href="/css/admin/category/global.css">
   <link rel="stylesheet" href="/css/admin/category/index.css">
 </head>
 <body>
@@ -50,10 +51,16 @@
         <td th:text="${category.name}">이름</td>
         <td th:text="${category.description}">설명</td>
         <td>
-          <button class="btn-orange">수정</button>
+          <a th:href="@{/admin/category/{id}/updateForm(id=${category.id})}"
+             class="category-btn btn-orange">
+            수정
+          </a>
+
         </td>
         <td>
-          <button class="btn-orange">삭제</button>
+          <button class="btn btn-light">
+            삭제
+          </button>
         </td>
       </tr>
       </tbody>

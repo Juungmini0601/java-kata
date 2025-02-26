@@ -1,38 +1,3 @@
-.root {
-    margin-top: 80px;
-    display: flex;
-    height: calc(100vh - 80px);
-}
-
-.sidebar {
-    display: flex;
-    width: 20%;
-    border-right: 1px solid #ccc;
-}
-
-.sidebar ul li {
-    margin: 1rem 0;
-}
-
-.sidebar ul li a:hover {
-    font-weight: bold;
-    color: #ff6600;
-}
-
-.content {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    align-items: center;
-}
-
-.content .category-create-btn-section {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    margin-bottom: 1rem;
-}
-
 .content .category-table {
     text-align: center;
 }
@@ -44,11 +9,4 @@
 
 .btn-orange {
     margin: 0;
-}
-
-.top-menu {
-    display: flex;
-    justify-content: end;
-    width: 100%;
-    margin-bottom: 1.25rem;
 }

@@ -6,6 +6,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import io.kata.java.service.category.model.CreateCategoryInfo;
+import io.kata.java.service.category.model.UpdateCategoryInfo;
 
 /**
  * @author    : kimjungmin
@@ -17,4 +18,7 @@ public interface CategoryMapper {
 
 	@Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
 	Categories toEntity(CreateCategoryInfo createCategoryInfo);
+
+	@Mapping(target = "updatedAt", expression = "java(java.time.LocalDateTime.now())")
+	Categories toEntity(UpdateCategoryInfo updateCategoryInfo);
 }

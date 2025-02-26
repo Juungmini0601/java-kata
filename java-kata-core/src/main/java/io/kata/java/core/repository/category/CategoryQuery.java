@@ -1,6 +1,7 @@
 package io.kata.java.core.repository.category;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.jooq.DSLContext;
 import org.jooq.generated.tables.JCategories;
@@ -25,5 +26,14 @@ public class CategoryQuery {
 	public List<Categories> getAllCategories() {
 		return dslContext.selectFrom(CATEGORY)
 			.fetchInto(Categories.class);
+	}
+
+	@Transactional
+	public Optional<Categories> findOneById(Long id) {
+		return Optional.ofNullable(
+			dslContext.selectFrom(CATEGORY)
+				.where(CATEGORY.ID.eq(id))
+				.fetchOneInto(Categories.class)
+		);
 	}
 }
