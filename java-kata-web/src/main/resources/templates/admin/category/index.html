@@ -3,13 +3,14 @@
 <!-- ~{::link}는 모든 link를 선택하는 한다. -->
 <!-- 링크 말고 셀렉터를 넣어서 선택 가능 ~{::div} ::#myId}  ~{::.myClass}-->
 <head th:replace="~{layout/base :: head('Java Kata 어드민 페이지', ~{::link})}">
-  <link rel="stylesheet" href="/css/admin/index.css">
+  <link rel="stylesheet" href="/css/admin/category/index.css">
 </head>
 <body>
 
 <th:block th:replace="~{layout/base :: header}"/>
 
 <div class="root">
+  <!-- 좌측 사이드바 -->
   <aside class="sidebar">
     <ul>
       <li>
@@ -23,11 +24,15 @@
     </ul>
   </aside>
 
+  <!-- 우측 Data Grid -->
   <section class="content p-5">
-
-    <div class="category-create-btn-section">
-      <button class="btn-orange">카테고리 생성</button>
+    <!--  상단 버튼  -->
+    <div class="top-menu">
+      <a href="/admin/category/createForm" class="category-btn btn-orange">
+        카테고리 생성
+      </a>
     </div>
+
     <!-- Category List   -->
     <table class="category-table table table-bordered">
       <thead>

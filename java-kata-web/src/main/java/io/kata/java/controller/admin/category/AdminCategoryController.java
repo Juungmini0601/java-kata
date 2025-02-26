@@ -3,7 +3,9 @@ package io.kata.java.controller.admin.category;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
+import io.kata.java.controller.admin.category.request.CreateCategoryRequest;
 import io.kata.java.service.category.CategoryService;
 import lombok.RequiredArgsConstructor;
 
@@ -25,5 +27,11 @@ public class AdminCategoryController {
 		model.addAttribute("categories", categoryService.findAll());
 
 		return "admin/category/index";
+	}
+
+	@GetMapping("/admin/category/createForm")
+	public String create(@ModelAttribute("createCategoryRequest") CreateCategoryRequest createCategoryRequest) {
+		
+		return "admin/category/createForm";
 	}
 }
