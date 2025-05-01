@@ -10,14 +10,16 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 public class DataSourceConfig {
-	@Bean
-	@ConfigurationProperties(prefix = "storage.datasource.core")
-	public HikariConfig coreHikariConfig() {
-		return new HikariConfig();
-	}
 
-	@Bean
-	public HikariDataSource coreDataSource(@Qualifier("coreHikariConfig") HikariConfig hikariConfig) {
-		return new HikariDataSource(hikariConfig);
-	}
+    @Bean
+    @ConfigurationProperties(prefix = "storage.datasource.core")
+    public HikariConfig coreHikariConfig() {
+        return new HikariConfig();
+    }
+
+    @Bean
+    public HikariDataSource coreDataSource(@Qualifier("coreHikariConfig") HikariConfig hikariConfig) {
+        return new HikariDataSource(hikariConfig);
+    }
+
 }

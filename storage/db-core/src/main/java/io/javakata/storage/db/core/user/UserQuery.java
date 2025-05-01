@@ -5,15 +5,16 @@ import org.springframework.stereotype.Repository;
 import lombok.RequiredArgsConstructor;
 
 /**
- * @author    : kimjungmin
- * Created on : 2025. 5. 1.
+ * @author : kimjungmin Created on : 2025. 5. 1.
  */
 @Repository
 @RequiredArgsConstructor
 public class UserQuery {
-	private final UserRepository userRepository;
 
-	public boolean existsByEmail(final String email) {
-		return userRepository.existsByEmail(email);
-	}
+    private final UserRepository userRepository;
+
+    public boolean existsByEmail(final String email) {
+        return userRepository.existsByEmail(email);
+    }
+
 }

@@ -4,18 +4,21 @@ import lombok.Getter;
 
 @Getter
 public class JavaKataException extends RuntimeException {
-	private final ErrorType errorType;
-	private final Object data;
 
-	public JavaKataException(ErrorType errorType) {
-		super(errorType.getMessage());
-		this.errorType = errorType;
-		this.data = null;
-	}
+    private final ErrorType errorType;
 
-	public JavaKataException(ErrorType errorType, Object data) {
-		super(errorType.getMessage());
-		this.errorType = errorType;
-		this.data = data;
-	}
+    private final Object data;
+
+    public JavaKataException(ErrorType errorType) {
+        super(errorType.getMessage());
+        this.errorType = errorType;
+        this.data = null;
+    }
+
+    public JavaKataException(ErrorType errorType, Object data) {
+        super(errorType.getMessage());
+        this.errorType = errorType;
+        this.data = data;
+    }
+
 }

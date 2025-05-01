@@ -52,8 +52,14 @@ public class SubmissionEntity extends BaseEntity {
     @JoinColumn(name = "problem_id", nullable = false)
     private ProblemEntity problemEntity;
 
-    public static SubmissionEntity of(UserEntity userEntity, ProblemEntity problemEntity, Language language, String code, Status status) {
-        return builder().userEntity(userEntity).problemEntity(problemEntity).language(language).code(code).status(status).build();
+    public static SubmissionEntity of(UserEntity userEntity, ProblemEntity problemEntity, Language language,
+            String code, Status status) {
+        return builder().userEntity(userEntity)
+            .problemEntity(problemEntity)
+            .language(language)
+            .code(code)
+            .status(status)
+            .build();
     }
 
 }
