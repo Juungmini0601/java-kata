@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  java-kata-mysql:
+    image: mysql:8.0.35
+
+    platform: linux/amd64
+    volumes:
+      - java_kata_mysql_volume:/data
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: qwer1234
+      MYSQL_DATABASE: java_kata
+    command:
+      [ 'mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--lower_case_table_names=1' ]
+
+  java-kata-redis:
+    image: redis:7.2
+    ports:
+      - '6379:6379'
+    volumes:
+      - java_kata_redis_volume:/data
+    command: redis-server --requirepass qwer1234 --appendonly yes
+
+  java-kata-rabbitmq:
+    image: rabbitmq:3-management
+    container_name: java-kata-rabbitmq
+    volumes:
+      - java_kata_rabbitmq_etc_volume:/etc/rabbitmq/
+      - java_kata_rabbitmq_data_volume:/var/lib/rabbitmq/
+      - java_katarabbitmq_log_volume:/var/log/rabbitmq/
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+volumes:
+  # Named Volume 컨테이너 내부 파일 시스템과 마운트 될 볼륨 위치를 알아서 잡아줌
+  java_kata_mysql_volume:
+  java_kata_redis_volume:
+  java_kata_rabbitmq_etc_volume:
+  java_kata_rabbitmq_data_volume:
+  java_katarabbitmq_log_volume:

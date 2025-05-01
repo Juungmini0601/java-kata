@@ -1,1 +1,15 @@
+// 플러그인 버전 중앙 관리용 버전 gradle.properties
+pluginManagement {
+    plugins {
+        id 'org.springframework.boot' version "${springBootVersion}"
+        id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+        id 'io.spring.javaformat' version "${springJavaFormatVersion}"
+    }
+}
+
 rootProject.name = 'java-kata'
+
+include 'storage:db-core'
+include 'core:core-enum'
+include 'core:core-api'
+include 'commons:common-model'

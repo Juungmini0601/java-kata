@@ -1,0 +1,19 @@
+bootJar.enabled = true
+jar.enabled = false
+
+dependencies {
+    implementation project(":storage:db-core")
+    implementation project(":commons:common-model")
+
+    // Web, Validation
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Jwt
+    implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
+    implementation "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-gson:${jjwtVersion}"
+
+    // Bcrypt
+    implementation "org.mindrot:jbcrypt:${jbcryptVersion}"
+}
