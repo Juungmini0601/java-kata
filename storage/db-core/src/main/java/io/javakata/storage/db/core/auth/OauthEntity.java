@@ -28,20 +28,23 @@ import lombok.ToString;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "oauths", uniqueConstraints = @UniqueConstraint(name = "uk_provider_providerid", columnNames = {"provider", "providerId"}))
+@Table(name = "oauths", uniqueConstraints = @UniqueConstraint(name = "uk_provider_providerid",
+        columnNames = { "provider", "providerId" }))
 public class OauthEntity extends BaseEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private OAuthProvider provider;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(nullable = false)
-	private String providerId;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private OAuthProvider provider;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
-	private UserEntity user;
+    @Column(nullable = false)
+    private String providerId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
+
 }

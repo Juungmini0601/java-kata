@@ -48,12 +48,7 @@ public class UserEntity extends BaseEntity {
     private Role role;
 
     public static UserEntity withRegisterInfo(String email, String password, String nickname) {
-        return UserEntity.builder()
-            .email(email)
-            .password(password)
-            .nickname(nickname)
-            .role(Role.ROLE_USER)
-            .build();
+        return UserEntity.builder().email(email).password(password).nickname(nickname).role(Role.ROLE_USER).build();
     }
 
     public User toModel() {
@@ -66,4 +61,5 @@ public class UserEntity extends BaseEntity {
             .updatedAt(this.getUpdatedAt())
             .build();
     }
+
 }

@@ -51,8 +51,8 @@ public class TestCaseResultEntity extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String error;
 
-    public static TestCaseResultEntity of(SubmissionEntity submissionEntity, TestCaseEntity testCaseEntity, Status status, String output,
-            String error) {
+    public static TestCaseResultEntity of(SubmissionEntity submissionEntity, TestCaseEntity testCaseEntity,
+            Status status, String output, String error) {
         return TestCaseResultEntity.builder()
             .submissionEntity(submissionEntity)
             .testCaseEntity(testCaseEntity)

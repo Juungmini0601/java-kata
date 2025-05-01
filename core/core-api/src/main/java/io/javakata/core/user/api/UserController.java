@@ -12,16 +12,17 @@ import io.javakata.model.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-	private final UserService userService;
 
-	@PostMapping("/api/v1/users")
-	public ApiResponse<UserResponse> register(@RequestBody @Valid CreateUserRequest request) {
-		User registeredUser = userService.register(request.email(), request.password(), request.nickname());
+    private final UserService userService;
 
-		return ApiResponse.success(UserResponse.from(registeredUser));
-	}
+    @PostMapping("/api/v1/users")
+    public ApiResponse<UserResponse> register(@RequestBody @Valid CreateUserRequest request) {
+        User registeredUser = userService.register(request.email(), request.password(), request.nickname());
+
+        return ApiResponse.success(UserResponse.from(registeredUser));
+    }
+
 }

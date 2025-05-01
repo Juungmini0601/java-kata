@@ -7,23 +7,17 @@ import io.javakata.model.user.User;
 import lombok.Builder;
 
 @Builder
-public record UserResponse(
-	Long id,
-	String email,
-	String nickname,
-	Role role,
-	LocalDateTime createdAt,
-	LocalDateTime updatedAt
-) {
+public record UserResponse(Long id, String email, String nickname, Role role, LocalDateTime createdAt,
+        LocalDateTime updatedAt) {
 
-	public static UserResponse from(User user) {
-		return UserResponse.builder()
-			.id(user.id())
-			.email(user.email())
-			.nickname(user.nickname())
-			.role(user.role())
-			.createdAt(user.createdAt())
-			.updatedAt(user.updatedAt())
-			.build();
-	}
+    public static UserResponse from(User user) {
+        return UserResponse.builder()
+            .id(user.id())
+            .email(user.email())
+            .nickname(user.nickname())
+            .role(user.role())
+            .createdAt(user.createdAt())
+            .updatedAt(user.updatedAt())
+            .build();
+    }
 }

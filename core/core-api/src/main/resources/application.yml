@@ -1,4 +1,4 @@
-spring.application.name: core-api
+spring.application.name: java-kata-api
 spring.profiles.active: local
 
 spring:
@@ -17,5 +17,26 @@ server:
 ---
 spring.config.activate.on-profile: local
 
+jwt:
+  access-token:
+    secret: jsdhfgsddfaskdfgkasdghfjkadkjfagdjadfgasjdfgaskdjfgkasjdasdfhjasdfg
+    # 1시간
+    expire: 3600000
+  refresh-token:
+    secret: jsdhfgsddfaskdfgkasdghfjkadkjfagdjadfgasjdfgaskdjfgkasjdasdfhjasdfg
+    # 7일
+    expire: 604800000
+
+
 ---
 spring.config.activate.on-profile: prod
+
+jwt:
+  access-token:
+    secret: ${jwt-prod-access.secret}
+    # 1시간
+    expire: 3600000
+  refresh-token:
+    secret: ${jwt-prod-refresh.secret}
+    # 7일
+    expire: 604800000
