@@ -23,50 +23,50 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JwtTokenService implements TokenService {
 
-    private final JwtConfig jwtConfig;
+	private final JwtConfig jwtConfig;
 
-    @Override
-    public Token generateToken(TokenClaim tokenClaim) {
-        return new Token(generateAccessToken(tokenClaim), generateRefreshToken(tokenClaim));
-    }
+	@Override
+	public Token generateToken(TokenClaim tokenClaim) {
+		return new Token(generateAccessToken(tokenClaim), generateRefreshToken(tokenClaim));
+	}
 
-    @Override
-    public TokenClaim parseToken(final String token) {
-        SecretKey secretKey = Keys.hmacShaKeyFor(jwtConfig.getRefreshToken().secret().getBytes());
-        Jws<Claims> claimsJws = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
+	@Override
+	public TokenClaim parseToken(final String token) {
+		SecretKey secretKey = Keys.hmacShaKeyFor(jwtConfig.getRefreshToken().secret().getBytes());
+		Jws<Claims> claimsJws = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
 
-        final String email = claimsJws.getPayload().getSubject();
-        List<?> roles = claimsJws.getPayload().get("roles", List.class);
+		final String email = claimsJws.getPayload().getSubject();
+		List<?> roles = claimsJws.getPayload().get("roles", List.class);
 
-        return new TokenClaim(email, roles.stream().map(Object::toString).toList());
-    }
+		return new TokenClaim(email, roles.stream().map(Object::toString).toList());
+	}
 
-    private String generateAccessToken(TokenClaim tokenClaim) {
-        final long now = System.currentTimeMillis();
-        Date expireDate = new Date(now + jwtConfig.getAccessToken().expire());
-        SecretKey secretKey = Keys.hmacShaKeyFor(jwtConfig.getAccessToken().secret().getBytes());
+	private String generateAccessToken(TokenClaim tokenClaim) {
+		final long now = System.currentTimeMillis();
+		Date expireDate = new Date(now + jwtConfig.getAccessToken().expire());
+		SecretKey secretKey = Keys.hmacShaKeyFor(jwtConfig.getAccessToken().secret().getBytes());
 
-        return Jwts.builder()
-            .subject(tokenClaim.subject())
-            .claim("roles", tokenClaim.roles())
-            .issuedAt(new Date(now))
-            .expiration(expireDate)
-            .signWith(secretKey)
-            .compact();
-    }
+		return Jwts.builder()
+			.subject(tokenClaim.getSubject())
+			.claim("roles", tokenClaim.getRoles())
+			.issuedAt(new Date(now))
+			.expiration(expireDate)
+			.signWith(secretKey)
+			.compact();
+	}
 
-    private String generateRefreshToken(TokenClaim tokenClaim) {
-        final long now = System.currentTimeMillis();
-        Date expireDate = new Date(now + jwtConfig.getRefreshToken().expire());
-        SecretKey secretKey = Keys.hmacShaKeyFor(jwtConfig.getRefreshToken().secret().getBytes());
+	private String generateRefreshToken(TokenClaim tokenClaim) {
+		final long now = System.currentTimeMillis();
+		Date expireDate = new Date(now + jwtConfig.getRefreshToken().expire());
+		SecretKey secretKey = Keys.hmacShaKeyFor(jwtConfig.getRefreshToken().secret().getBytes());
 
-        return Jwts.builder()
-            .subject(tokenClaim.subject())
-            .claim("roles", tokenClaim.roles())
-            .issuedAt(new Date(now))
-            .expiration(expireDate)
-            .signWith(secretKey)
-            .compact();
-    }
+		return Jwts.builder()
+			.subject(tokenClaim.getSubject())
+			.claim("roles", tokenClaim.getRoles())
+			.issuedAt(new Date(now))
+			.expiration(expireDate)
+			.signWith(secretKey)
+			.compact();
+	}
 
 }

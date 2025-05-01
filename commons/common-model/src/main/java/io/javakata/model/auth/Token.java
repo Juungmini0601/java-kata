@@ -3,5 +3,9 @@ package io.javakata.model.auth;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public record Token(String accessToken, String refreshToken) {
+@Getter
+@AllArgsConstructor
+public class Token {
+	private String accessToken;
+	private String refreshToken;
 }

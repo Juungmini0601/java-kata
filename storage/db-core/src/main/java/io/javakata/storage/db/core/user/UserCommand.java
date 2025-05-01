@@ -3,6 +3,7 @@ package io.javakata.storage.db.core.user;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.javakata.model.user.User;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -12,16 +13,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserCommand {
 
-    private final UserRepository userRepository;
+	private final UserRepository userRepository;
 
-    @Transactional
-    public UserEntity save(UserEntity user) {
-        return userRepository.save(user);
-    }
+	@Transactional
+	public User save(User user) {
+		UserEntity userEntity = UserEntity.from(user);
+		return userRepository.save(userEntity).toModel();
+	}
 
-    @Transactional
-    public void delete(String email) {
-        userRepository.deleteByEmail(email);
-    }
+	@Transactional
+	public void delete(String email) {
+		userRepository.deleteByEmail(email);
+	}
 
 }

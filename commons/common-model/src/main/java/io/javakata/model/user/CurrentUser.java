@@ -1,10 +1,19 @@
 package io.javakata.model.user;
 
-/**
- * @author : kimjungmin Created on : 2025. 5. 1.
- */
-public record CurrentUser(String email, String role) {
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-    public static final String Current_USER_KEY = "CURRENT_USER";
+@Getter
+@RequiredArgsConstructor
+public class CurrentUser {
 
+	public static final String Current_USER_KEY = "CURRENT_USER";
+
+	private String email;
+	private String role;
+
+	public CurrentUser(String email, String role) {
+		this.email = email;
+		this.role = role;
+	}
 }
