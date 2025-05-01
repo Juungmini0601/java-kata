@@ -27,29 +27,28 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "problem_categories")
 public class ProblemCategoryEntity extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(nullable = false, name = "category_name", unique = true)
-	private String name;
+    @Column(nullable = false, name = "category_name", unique = true)
+    private String name;
 
-	public static ProblemCategoryEntity from(ProblemCategory category) {
-		return builder()
-			.id(category.getId())
-			.name(category.getName())
-			.createdAt(category.getCreatedAt())
-			.updatedAt(category.getUpdatedAt())
-			.build();
-	}
+    public static ProblemCategoryEntity from(ProblemCategory category) {
+        return builder().id(category.getId())
+            .name(category.getName())
+            .createdAt(category.getCreatedAt())
+            .updatedAt(category.getUpdatedAt())
+            .build();
+    }
 
-	public ProblemCategory toModel() {
-		return ProblemCategory.builder()
-			.id(getId())
-			.name(getName())
-			.createdAt(getCreatedAt())
-			.updatedAt(getUpdatedAt())
-			.build();
-	}
+    public ProblemCategory toModel() {
+        return ProblemCategory.builder()
+            .id(getId())
+            .name(getName())
+            .createdAt(getCreatedAt())
+            .updatedAt(getUpdatedAt())
+            .build();
+    }
 
 }

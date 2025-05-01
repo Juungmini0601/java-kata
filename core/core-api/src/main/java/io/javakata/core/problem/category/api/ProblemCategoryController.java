@@ -12,21 +12,22 @@ import io.javakata.model.problem.ProblemCategory;
 import lombok.RequiredArgsConstructor;
 
 /**
- * @author    : kimjungmin
- * Created on : 2025. 5. 1.
+ * @author : kimjungmin Created on : 2025. 5. 1.
  */
 @RestController
 @RequiredArgsConstructor
 public class ProblemCategoryController {
-	private final ProblemCategoryService problemCategoryService;
 
-	@GetMapping("/api/v1/problems/categories")
-	public ApiResponse<List<ProblemCategoryResponse>> getProblemCategories() {
-		List<ProblemCategory> problemCategories = problemCategoryService.findAll();
-		List<ProblemCategoryResponse> responses = problemCategories.stream()
-			.map(ProblemCategoryResponse::from)
-			.toList();
+    private final ProblemCategoryService problemCategoryService;
 
-		return ApiResponse.success(responses);
-	}
+    @GetMapping("/api/v1/problems/categories")
+    public ApiResponse<List<ProblemCategoryResponse>> getProblemCategories() {
+        List<ProblemCategory> problemCategories = problemCategoryService.findAll();
+        List<ProblemCategoryResponse> responses = problemCategories.stream()
+            .map(ProblemCategoryResponse::from)
+            .toList();
+
+        return ApiResponse.success(responses);
+    }
+
 }

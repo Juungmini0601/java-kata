@@ -8,18 +8,21 @@ import lombok.Getter;
 @Getter
 @Builder
 public class ProblemCategory {
-	private Long id;
-	private String name;
-	private LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
 
-	public static ProblemCategory from(final String name) {
-		return builder()
-			.name(name)
-			.build();
-	}
+    private Long id;
 
-	public void changeName(final String name) {
-		this.name = name;
-	}
+    private String name;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    public static ProblemCategory from(final String name) {
+        return builder().name(name).build();
+    }
+
+    public void changeName(final String name) {
+        this.name = name;
+    }
+
 }

@@ -13,17 +13,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserCommand {
 
-	private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-	@Transactional
-	public User save(User user) {
-		UserEntity userEntity = UserEntity.from(user);
-		return userRepository.save(userEntity).toModel();
-	}
+    @Transactional
+    public User save(User user) {
+        UserEntity userEntity = UserEntity.from(user);
+        return userRepository.save(userEntity).toModel();
+    }
 
-	@Transactional
-	public void delete(String email) {
-		userRepository.deleteByEmail(email);
-	}
+    @Transactional
+    public void delete(String email) {
+        userRepository.deleteByEmail(email);
+    }
 
 }

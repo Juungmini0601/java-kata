@@ -9,18 +9,19 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class ProblemCategoryCommand {
-	private final ProblemCategoryRepository problemCategoryRepository;
 
-	@Transactional
-	public ProblemCategory save(ProblemCategory category) {
-		ProblemCategoryEntity problemCategoryEntity = ProblemCategoryEntity.from(category);
+    private final ProblemCategoryRepository problemCategoryRepository;
 
-		return problemCategoryRepository.save(problemCategoryEntity)
-			.toModel();
-	}
+    @Transactional
+    public ProblemCategory save(ProblemCategory category) {
+        ProblemCategoryEntity problemCategoryEntity = ProblemCategoryEntity.from(category);
 
-	@Transactional
-	public void deleteById(final Long categoryId) {
-		problemCategoryRepository.deleteById(categoryId);
-	}
+        return problemCategoryRepository.save(problemCategoryEntity).toModel();
+    }
+
+    @Transactional
+    public void deleteById(final Long categoryId) {
+        problemCategoryRepository.deleteById(categoryId);
+    }
+
 }

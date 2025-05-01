@@ -23,11 +23,11 @@ import lombok.experimental.SuperBuilder;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
-	@Column(nullable = false)
-	@CreatedDate
-	private LocalDateTime createdAt;
+    @Column(nullable = false)
+    @CreatedDate
+    private LocalDateTime createdAt;
 
-	@LastModifiedDate
-	private LocalDateTime updatedAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
 }

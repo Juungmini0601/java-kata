@@ -8,6 +8,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class TokenClaim {
-	private String subject;
-	private List<String> roles;
+
+    private String subject;
+
+    private List<String> roles;
+
 }

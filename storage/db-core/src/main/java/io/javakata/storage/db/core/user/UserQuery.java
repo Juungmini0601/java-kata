@@ -17,29 +17,30 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserQuery {
 
-	private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-	@Transactional(readOnly = true)
-	public boolean existsByEmail(final String email) {
-		return userRepository.existsByEmail(email);
-	}
+    @Transactional(readOnly = true)
+    public boolean existsByEmail(final String email) {
+        return userRepository.existsByEmail(email);
+    }
 
-	@Transactional(readOnly = true)
-	public void ifExistsByEmailDoThrow(final String email) {
-		if (userRepository.existsByEmail(email)) {
-			throw new ConflictException("중복된 이메일: " + email);
-		}
-	}
+    @Transactional(readOnly = true)
+    public void ifExistsByEmailDoThrow(final String email) {
+        if (userRepository.existsByEmail(email)) {
+            throw new ConflictException("중복된 이메일: " + email);
+        }
+    }
 
-	@Transactional(readOnly = true)
-	public Optional<UserEntity> findByEmail(final String email) {
-		return userRepository.findByEmail(email);
-	}
+    @Transactional(readOnly = true)
+    public Optional<UserEntity> findByEmail(final String email) {
+        return userRepository.findByEmail(email);
+    }
 
-	@Transactional(readOnly = true)
-	public User findByEmailOrElseThrow(final String email) {
-		return userRepository.findByEmail(email)
-			.orElseThrow(() -> new NotFoundException("not found user email:" + email))
-			.toModel();
-	}
+    @Transactional(readOnly = true)
+    public User findByEmailOrElseThrow(final String email) {
+        return userRepository.findByEmail(email)
+            .orElseThrow(() -> new NotFoundException("not found user email:" + email))
+            .toModel();
+    }
+
 }

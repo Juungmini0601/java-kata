@@ -17,22 +17,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthService {
 
-	private final UserQuery userQuery;
+    private final UserQuery userQuery;
 
-	private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-	private final TokenService tokenService;
+    private final TokenService tokenService;
 
-	@Transactional(readOnly = true)
-	public Token signin(final String email, final String password) {
-		User user = userQuery.findByEmailOrElseThrow(email);
+    @Transactional(readOnly = true)
+    public Token signin(final String email, final String password) {
+        User user = userQuery.findByEmailOrElseThrow(email);
 
-		if (!passwordEncoder.matches(password, user.getPassword())) {
-			throw new JavaKataException(ErrorType.AUTHENTICATION_ERROR, "로그인 실패");
-		}
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new JavaKataException(ErrorType.AUTHENTICATION_ERROR, "로그인 실패");
+        }
 
-		TokenClaim tokenClaim = new TokenClaim(user.getEmail(), List.of(user.getRole().toString()));
-		return tokenService.generateToken(tokenClaim);
-	}
+        TokenClaim tokenClaim = new TokenClaim(user.getEmail(), List.of(user.getRole().toString()));
+        return tokenService.generateToken(tokenClaim);
+    }
 
 }

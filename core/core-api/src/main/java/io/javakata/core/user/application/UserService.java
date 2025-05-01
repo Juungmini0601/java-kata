@@ -13,25 +13,25 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService {
 
-	private final UserCommand userCommand;
+    private final UserCommand userCommand;
 
-	private final UserQuery userQuery;
+    private final UserQuery userQuery;
 
-	private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-	@Transactional
-	public User register(final String email, final String password, final String nickname) {
-		userQuery.ifExistsByEmailDoThrow(email);
+    @Transactional
+    public User register(final String email, final String password, final String nickname) {
+        userQuery.ifExistsByEmailDoThrow(email);
 
-		final String encryptedPassword = passwordEncoder.encode(password);
-		User user = User.withRegisterInfo(email, encryptedPassword, nickname);
+        final String encryptedPassword = passwordEncoder.encode(password);
+        User user = User.withRegisterInfo(email, encryptedPassword, nickname);
 
-		return userCommand.save(user);
-	}
+        return userCommand.save(user);
+    }
 
-	@Transactional(readOnly = true)
-	public User fetchUserByEmail(final String email) {
-		return userQuery.findByEmailOrElseThrow(email);
-	}
+    @Transactional(readOnly = true)
+    public User fetchUserByEmail(final String email) {
+        return userQuery.findByEmailOrElseThrow(email);
+    }
 
 }

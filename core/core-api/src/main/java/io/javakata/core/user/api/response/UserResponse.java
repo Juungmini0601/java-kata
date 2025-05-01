@@ -8,16 +8,16 @@ import lombok.Builder;
 
 @Builder
 public record UserResponse(Long id, String email, String nickname, Role role, LocalDateTime createdAt,
-						   LocalDateTime updatedAt) {
+        LocalDateTime updatedAt) {
 
-	public static UserResponse from(User user) {
-		return UserResponse.builder()
-			.id(user.getId())
-			.email(user.getEmail())
-			.nickname(user.getNickname())
-			.role(user.getRole())
-			.createdAt(user.getCreatedAt())
-			.updatedAt(user.getUpdatedAt())
-			.build();
-	}
+    public static UserResponse from(User user) {
+        return UserResponse.builder()
+            .id(user.getId())
+            .email(user.getEmail())
+            .nickname(user.getNickname())
+            .role(user.getRole())
+            .createdAt(user.getCreatedAt())
+            .updatedAt(user.getUpdatedAt())
+            .build();
+    }
 }

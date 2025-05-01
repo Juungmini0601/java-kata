@@ -13,32 +13,35 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ProblemCategoryService {
-	private final ProblemCategoryCommand problemCategoryCommand;
-	private final ProblemCategoryQuery problemCategoryQuery;
 
-	@Transactional(readOnly = true)
-	public List<ProblemCategory> findAll() {
-		return problemCategoryQuery.findAll();
-	}
+    private final ProblemCategoryCommand problemCategoryCommand;
 
-	@Transactional
-	public ProblemCategory createCategory(final String categoryName) {
-		problemCategoryQuery.ifExistsByNameDoThrow(categoryName);
-		ProblemCategory problemCategory = ProblemCategory.from(categoryName);
+    private final ProblemCategoryQuery problemCategoryQuery;
 
-		return problemCategoryCommand.save(problemCategory);
-	}
+    @Transactional(readOnly = true)
+    public List<ProblemCategory> findAll() {
+        return problemCategoryQuery.findAll();
+    }
 
-	@Transactional
-	public ProblemCategory updateCategory(final Long categoryId, final String categoryName) {
-		ProblemCategory problemCategory = problemCategoryQuery.findByIdOrElseThrow(categoryId);
-		problemCategory.changeName(categoryName);
+    @Transactional
+    public ProblemCategory createCategory(final String categoryName) {
+        problemCategoryQuery.ifExistsByNameDoThrow(categoryName);
+        ProblemCategory problemCategory = ProblemCategory.from(categoryName);
 
-		return problemCategoryCommand.save(problemCategory);
-	}
+        return problemCategoryCommand.save(problemCategory);
+    }
 
-	@Transactional
-	public void deleteCategory(final Long categoryId) {
-		problemCategoryCommand.deleteById(categoryId);
-	}
+    @Transactional
+    public ProblemCategory updateCategory(final Long categoryId, final String categoryName) {
+        ProblemCategory problemCategory = problemCategoryQuery.findByIdOrElseThrow(categoryId);
+        problemCategory.changeName(categoryName);
+
+        return problemCategoryCommand.save(problemCategory);
+    }
+
+    @Transactional
+    public void deleteCategory(final Long categoryId) {
+        problemCategoryCommand.deleteById(categoryId);
+    }
+
 }

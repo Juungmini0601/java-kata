@@ -30,44 +30,45 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(nullable = false, unique = true)
-	private String email;
+    @Column(nullable = false, unique = true)
+    private String email;
 
-	@Column(nullable = false)
-	private String password;
+    @Column(nullable = false)
+    private String password;
 
-	@Column(nullable = false)
-	private String nickname;
+    @Column(nullable = false)
+    private String nickname;
 
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private Role role;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
-	public static UserEntity from(User user) {
-		return UserEntity.builder()
-			.id(user.getId())
-			.email(user.getEmail())
-			.nickname(user.getNickname())
-			.password(user.getPassword())
-			.role(user.getRole())
-			.createdAt(user.getCreatedAt())
-			.updatedAt(user.getUpdatedAt())
-			.build();
-	}
+    public static UserEntity from(User user) {
+        return UserEntity.builder()
+            .id(user.getId())
+            .email(user.getEmail())
+            .nickname(user.getNickname())
+            .password(user.getPassword())
+            .role(user.getRole())
+            .createdAt(user.getCreatedAt())
+            .updatedAt(user.getUpdatedAt())
+            .build();
+    }
 
-	public User toModel() {
-		return User.builder()
-			.id(this.getId())
-			.email(this.getEmail())
-			.nickname(this.getNickname())
-			.password(this.getPassword())
-			.role(this.getRole())
-			.createdAt(this.getCreatedAt())
-			.updatedAt(this.getUpdatedAt())
-			.build();
-	}
+    public User toModel() {
+        return User.builder()
+            .id(this.getId())
+            .email(this.getEmail())
+            .nickname(this.getNickname())
+            .password(this.getPassword())
+            .role(this.getRole())
+            .createdAt(this.getCreatedAt())
+            .updatedAt(this.getUpdatedAt())
+            .build();
+    }
+
 }

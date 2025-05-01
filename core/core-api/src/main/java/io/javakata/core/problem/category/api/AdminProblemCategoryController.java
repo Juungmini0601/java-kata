@@ -20,35 +20,33 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class AdminProblemCategoryController {
-	private final ProblemCategoryService problemCategoryService;
 
-	@Admin
-	@PostMapping("/api/v1/admin/problems/categories")
-	public ApiResponse<ProblemCategoryResponse> createProblemCategory(
-		@Valid @RequestBody CreateProblemCategoryRequest request) {
-		ProblemCategory category = problemCategoryService.createCategory(request.categoryName());
+    private final ProblemCategoryService problemCategoryService;
 
-		return ApiResponse.success(ProblemCategoryResponse.from(category));
-	}
+    @Admin
+    @PostMapping("/api/v1/admin/problems/categories")
+    public ApiResponse<ProblemCategoryResponse> createProblemCategory(
+            @Valid @RequestBody CreateProblemCategoryRequest request) {
+        ProblemCategory category = problemCategoryService.createCategory(request.categoryName());
 
-	@Admin
-	@PutMapping("/api/v1/admin/problems/categories/{categoryId}")
-	public ApiResponse<ProblemCategoryResponse> updateProblemCategory(
-		@PathVariable Long categoryId,
-		@Valid @RequestBody UpdateProblemCategoryRequest request
-	) {
-		ProblemCategory category = problemCategoryService.updateCategory(categoryId, request.categoryName());
+        return ApiResponse.success(ProblemCategoryResponse.from(category));
+    }
 
-		return ApiResponse.success(ProblemCategoryResponse.from(category));
-	}
+    @Admin
+    @PutMapping("/api/v1/admin/problems/categories/{categoryId}")
+    public ApiResponse<ProblemCategoryResponse> updateProblemCategory(@PathVariable Long categoryId,
+            @Valid @RequestBody UpdateProblemCategoryRequest request) {
+        ProblemCategory category = problemCategoryService.updateCategory(categoryId, request.categoryName());
 
-	@Admin
-	@DeleteMapping("/api/v1/admin/problems/categories/{categoryId}")
-	public ApiResponse<?> deleteProblemCategory(
-		@PathVariable Long categoryId
-	) {
-		problemCategoryService.deleteCategory(categoryId);
+        return ApiResponse.success(ProblemCategoryResponse.from(category));
+    }
 
-		return ApiResponse.success();
-	}
+    @Admin
+    @DeleteMapping("/api/v1/admin/problems/categories/{categoryId}")
+    public ApiResponse<?> deleteProblemCategory(@PathVariable Long categoryId) {
+        problemCategoryService.deleteCategory(categoryId);
+
+        return ApiResponse.success();
+    }
+
 }

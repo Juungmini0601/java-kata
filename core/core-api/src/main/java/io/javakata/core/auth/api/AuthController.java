@@ -22,22 +22,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthController {
 
-	private final AuthService authService;
+    private final AuthService authService;
 
-	private final UserService userService;
+    private final UserService userService;
 
-	@GetMapping("/api/v1/auth")
-	public ApiResponse<UserResponse> getCurrentUser(@Auth CurrentUser user) {
-		User fullUserInfo = userService.fetchUserByEmail(user.getEmail());
+    @GetMapping("/api/v1/auth")
+    public ApiResponse<UserResponse> getCurrentUser(@Auth CurrentUser user) {
+        User fullUserInfo = userService.fetchUserByEmail(user.getEmail());
 
-		return ApiResponse.success(UserResponse.from(fullUserInfo));
-	}
+        return ApiResponse.success(UserResponse.from(fullUserInfo));
+    }
 
-	@PostMapping("/api/v1/auth/token")
-	public ApiResponse<TokenResponse> signin(@Valid @RequestBody SigninRequest request) {
-		Token token = authService.signin(request.email(), request.password());
+    @PostMapping("/api/v1/auth/token")
+    public ApiResponse<TokenResponse> signin(@Valid @RequestBody SigninRequest request) {
+        Token token = authService.signin(request.email(), request.password());
 
-		return ApiResponse.success(new TokenResponse(token.getAccessToken(), token.getRefreshToken()));
-	}
+        return ApiResponse.success(new TokenResponse(token.getAccessToken(), token.getRefreshToken()));
+    }
 
 }

@@ -11,31 +11,30 @@ import io.javakata.storage.db.core.error.NotFoundException;
 import lombok.RequiredArgsConstructor;
 
 /**
- * @author    : kimjungmin
- * Created on : 2025. 5. 1.
+ * @author : kimjungmin Created on : 2025. 5. 1.
  */
 @Repository
 @RequiredArgsConstructor
 public class ProblemCategoryQuery {
-	private final ProblemCategoryRepository problemCategoryRepository;
 
-	@Transactional(readOnly = true)
-	public void ifExistsByNameDoThrow(final String categoryName) {
-		if (problemCategoryRepository.existsByName(categoryName)) {
-			throw new ConflictException("duplicated category name:" + categoryName);
-		}
-	}
+    private final ProblemCategoryRepository problemCategoryRepository;
 
-	@Transactional(readOnly = true)
-	public ProblemCategory findByIdOrElseThrow(final Long id) {
-		return problemCategoryRepository.findById(id)
-			.orElseThrow(() -> new NotFoundException("not found category id:" + id))
-			.toModel();
-	}
+    @Transactional(readOnly = true)
+    public void ifExistsByNameDoThrow(final String categoryName) {
+        if (problemCategoryRepository.existsByName(categoryName)) {
+            throw new ConflictException("duplicated category name:" + categoryName);
+        }
+    }
 
-	public List<ProblemCategory> findAll() {
-		return problemCategoryRepository.findAll().stream()
-			.map(ProblemCategoryEntity::toModel)
-			.toList();
-	}
+    @Transactional(readOnly = true)
+    public ProblemCategory findByIdOrElseThrow(final Long id) {
+        return problemCategoryRepository.findById(id)
+            .orElseThrow(() -> new NotFoundException("not found category id:" + id))
+            .toModel();
+    }
+
+    public List<ProblemCategory> findAll() {
+        return problemCategoryRepository.findAll().stream().map(ProblemCategoryEntity::toModel).toList();
+    }
+
 }
