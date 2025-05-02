@@ -2,9 +2,9 @@ package io.javakata.storage.db.core.submission;
 
 import io.javakata.model.language.Language;
 import io.javakata.model.submission.Status;
+import io.javakata.model.submission.Submission;
 import io.javakata.storage.db.core.BaseEntity;
 import io.javakata.storage.db.core.problem.ProblemEntity;
-import io.javakata.storage.db.core.user.UserEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,13 +17,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @ToString
-@Builder
+@SuperBuilder
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -44,21 +44,30 @@ public class SubmissionEntity extends BaseEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String code;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity userEntity;
+    private Long userId;
 
     @ManyToOne
     @JoinColumn(name = "problem_id", nullable = false)
     private ProblemEntity problemEntity;
 
-    public static SubmissionEntity of(UserEntity userEntity, ProblemEntity problemEntity, Language language,
-            String code, Status status) {
-        return builder().userEntity(userEntity)
-            .problemEntity(problemEntity)
-            .language(language)
-            .code(code)
-            .status(status)
+    public static SubmissionEntity from(Submission submission) {
+        return builder().id(submission.getSubmissionId())
+            .status(submission.getStatus())
+            .language(submission.getLanguage())
+            .code(submission.getCode())
+            .userId(submission.getUserId())
+            .problemEntity(ProblemEntity.from(submission.getProblem()))
+            .build();
+    }
+
+    public Submission toModel() {
+        return Submission.builder()
+            .submissionId(getId())
+            .status(getStatus())
+            .language(getLanguage())
+            .code(getCode())
+            .userId(getUserId())
+            .problem(getProblemEntity().toModel())
             .build();
     }
 

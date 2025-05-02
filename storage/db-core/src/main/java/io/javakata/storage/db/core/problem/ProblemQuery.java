@@ -28,9 +28,9 @@ public class ProblemQuery {
     }
 
     @Transactional(readOnly = true)
-    public Problem findByIdWithTestCase(Long id) {
-        return problemRepository.findByIdFetchJoin(id)
-            .orElseThrow(() -> new NotFoundException("Notfound Problem id: " + id))
+    public Problem findByIdWithTestCase(final Long problemId) {
+        return problemRepository.findByIdFetchJoin(problemId)
+            .orElseThrow(() -> new NotFoundException("Notfound Problem problemId: " + problemId))
             .toModel();
     }
 

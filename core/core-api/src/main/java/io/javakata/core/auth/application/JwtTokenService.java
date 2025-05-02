@@ -16,9 +16,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 
-/**
- * @author : kimjungmin Created on : 2025. 5. 1.
- */
 @Service
 @RequiredArgsConstructor
 public class JwtTokenService implements TokenService {
