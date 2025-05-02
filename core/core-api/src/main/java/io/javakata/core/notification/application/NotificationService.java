@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class NotificationService {
 
     private static final Long EMITTER_CONNECTION_TIME = 60 * 60 * 1000L;
+
     private final Map<Long, SseEmitter> emitters = new ConcurrentHashMap<>();
 
     public SseEmitter connect(Long userId) {
