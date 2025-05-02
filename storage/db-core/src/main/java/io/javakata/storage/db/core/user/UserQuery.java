@@ -20,11 +20,6 @@ public class UserQuery {
     private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
-    public boolean existsByEmail(final String email) {
-        return userRepository.existsByEmail(email);
-    }
-
-    @Transactional(readOnly = true)
     public void ifExistsByEmailDoThrow(final String email) {
         if (userRepository.existsByEmail(email)) {
             throw new ConflictException("중복된 이메일: " + email);

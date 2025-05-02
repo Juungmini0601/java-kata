@@ -10,6 +10,7 @@ pluginManagement {
 rootProject.name = 'java-kata'
 
 include 'storage:db-core'
-include 'core:core-enum'
 include 'core:core-api'
 include 'core:core-model'
+include 'storage:redis-core'
+include 'messaging:rabbitmq-core'
