@@ -1,5 +1,5 @@
 dependencies {
-    implementation project(":commons:common-model")
+    implementation project(":core:core-model")
     // JPA
     api 'org.springframework.boot:spring-boot-starter-data-jpa'
 
