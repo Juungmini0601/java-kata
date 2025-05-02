@@ -1,8 +1,12 @@
 package io.javakata.storage.db.core.problem;
 
+import java.util.List;
+
 import io.javakata.model.problem.Level;
+import io.javakata.model.problem.Problem;
 import io.javakata.storage.db.core.BaseEntity;
-import io.javakata.storage.db.core.problem.category.ProblemCategoryEntity;
+import io.javakata.storage.db.core.testcase.TestCaseEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,17 +15,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @ToString
-@Builder
+@SuperBuilder
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -60,73 +64,50 @@ public class ProblemEntity extends BaseEntity {
     @Column(nullable = false)
     private Long timeLimitMS; // MS
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private ProblemCategoryEntity category;
+    private Long categoryId; // 불필요한 연관관계 제거
 
-    // cascade -> problem 생성, 삭제시 testcase들도 같이 반영
-    // orphanRemoval -> problem의 testcases에서 리스트에서 제거되면 디비에서 삭제
-    // @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
-    // @JsonManagedReference // problem -> testCase 직렬화 OK
-    // @ToString.Exclude
-    // private List<TestCase> testCases;
-    //
-    // public void update(UpdateProblemRequest request, ProblemCategory category) {
-    // title = request.getTitle();
-    // level = request.getLevel();
-    // description = request.getDescription();
-    // constraints = request.getConstraints();
-    // input = request.getInput();
-    // expectedOutput = request.getExpectedOutput();
-    // baseCode = request.getBaseCode();
-    // memoryLimitMB = request.getMemoryLimitMB();
-    // timeLimitMS = request.getTimeLimitMS();
-    // this.category = category;
-    //
-    // // TODO Null이어도 수정되게 해야 될 거 같은데 일단은 Null인 경우 없다고 가정
-    // // TODO 현재 구조는 테스트 케이스의 개수 변경이 불가능함.
-    // Map<Long, UpdateTestCaseRequest> existingMap = request.getTestCases().stream()
-    // .collect(Collectors.toMap(UpdateTestCaseRequest::getId, tc -> tc));
-    //
-    // testCases.forEach(testCase -> {
-    // UpdateTestCaseRequest updateTestCaseRequest = existingMap.get(testCase.getId());
-    // if (updateTestCaseRequest == null) {
-    // throw new JavaKataException(ErrorType.VALIDATION_ERROR, "not found testCase Id:" +
-    // testCase.getId());
-    // }
-    //
-    // testCase.update(updateTestCaseRequest);
-    // });
-    // }
-    //
-    // // TODO 연관관계 편의 메서드 블로깅
-    // public void addTestCase(TestCase testCase) {
-    // testCases.add(testCase);
-    // testCase.setProblem(this);
-    // }
+    // TODO cascade, orphanRemoval 리뷰 받았던 내용이라 정리 필요
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "problem_id")
+    private List<TestCaseEntity> testCases;
 
-    // public static Problem withCreateRequestAndCategory(CreateProblemRequest request,
-    // ProblemCategory category) {
-    // Problem problem = builder()
-    // .title(request.getTitle())
-    // .level(request.getLevel())
-    // .description(request.getDescription())
-    // .constraints(request.getConstraints())
-    // .input(request.getInput())
-    // .expectedOutput(request.getExpectedOutput())
-    // .baseCode(request.getBaseCode())
-    // .memoryLimitMB(request.getMemoryLimitMB())
-    // .timeLimitMS(request.getTimeLimitMS())
-    // .category(category)
-    // .testCases(new ArrayList<>())
-    // .build();
-    //
-    // request.getTestCases().forEach(testCaseRequest -> {
-    // TestCase testCase = TestCase.withCreateRequest(testCaseRequest);
-    // problem.addTestCase(testCase);
-    // });
-    //
-    // return problem;
-    // }
+    public static ProblemEntity from(Problem problem) {
+        List<TestCaseEntity> testCaseEntities = problem.getTestCases().stream().map(TestCaseEntity::from).toList();
+
+        return builder().id(problem.getId())
+            .title(problem.getTitle())
+            .level(problem.getLevel())
+            .description(problem.getDescription())
+            .constraints(problem.getConstraints())
+            .input(problem.getInput())
+            .expectedOutput(problem.getExpectedOutput())
+            .baseCode(problem.getBaseCode())
+            .memoryLimitMB(problem.getMemoryLimitMB())
+            .timeLimitMS(problem.getTimeLimitMS())
+            .categoryId(problem.getCategoryId())
+            .createdAt(problem.getCreatedAt())
+            .updatedAt(problem.getUpdatedAt())
+            .testCases(testCaseEntities)
+            .build();
+    }
+
+    public Problem toModel() {
+        return Problem.builder()
+            .id(getId())
+            .title(getTitle())
+            .level(getLevel())
+            .description(getDescription())
+            .constraints(getConstraints())
+            .input(getInput())
+            .expectedOutput(getExpectedOutput())
+            .baseCode(getBaseCode())
+            .memoryLimitMB(getMemoryLimitMB())
+            .timeLimitMS(getTimeLimitMS())
+            .categoryId(getCategoryId())
+            .createdAt(getCreatedAt())
+            .updatedAt(getUpdatedAt())
+            .testCases(testCases.stream().map(TestCaseEntity::toModel).toList())
+            .build();
+    }
 
 }

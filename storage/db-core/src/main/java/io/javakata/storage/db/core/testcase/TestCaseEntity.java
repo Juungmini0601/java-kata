@@ -1,5 +1,6 @@
 package io.javakata.storage.db.core.testcase;
 
+import io.javakata.model.testcase.TestCase;
 import io.javakata.storage.db.core.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,13 +10,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @ToString
-@Builder
+@SuperBuilder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -35,6 +36,28 @@ public class TestCaseEntity extends BaseEntity {
 
     @Column(nullable = false)
     private boolean isPublic;
+
+    public static TestCaseEntity from(TestCase testCase) {
+        return TestCaseEntity.builder()
+            .id(testCase.getId())
+            .input(testCase.getInput())
+            .expectedOutput(testCase.getExpectedOutput())
+            .isPublic(testCase.isPublic())
+            .createdAt(testCase.getCreatedAt())
+            .updatedAt(testCase.getUpdatedAt())
+            .build();
+    }
+
+    public TestCase toModel() {
+        return TestCase.builder()
+            .id(getId())
+            .input(getInput())
+            .expectedOutput(getExpectedOutput())
+            .isPublic(isPublic())
+            .createdAt(getCreatedAt())
+            .updatedAt(getUpdatedAt())
+            .build();
+    }
 
     // @ManyToOne
     // @JoinColumn(name = "problem_id", nullable = false)
