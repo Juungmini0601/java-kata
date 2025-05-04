@@ -10,9 +10,6 @@ import io.javakata.storage.db.core.error.ConflictException;
 import io.javakata.storage.db.core.error.NotFoundException;
 import lombok.RequiredArgsConstructor;
 
-/**
- * @author : kimjungmin Created on : 2025. 5. 1.
- */
 @Repository
 @RequiredArgsConstructor
 public class UserQuery {

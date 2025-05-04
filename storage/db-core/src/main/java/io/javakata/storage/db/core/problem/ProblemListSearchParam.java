@@ -7,9 +7,6 @@ import org.springframework.data.domain.Pageable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-/**
- * @author : kimjungmin Created on : 2025. 3. 28
- */
 @Getter
 @AllArgsConstructor
 public class ProblemListSearchParam {

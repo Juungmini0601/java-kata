@@ -5,9 +5,6 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-/**
- * @author : kimjungmin Created on : 2025. 3. 5.
- */
 @Getter
 @AllArgsConstructor
 public class ProblemWithCategory {

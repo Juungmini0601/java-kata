@@ -7,9 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
-/**
- * @author : kimjungmin Created on : 2025. 5. 2.
- */
 @Repository
 @RequiredArgsConstructor
 public class TestCaseCommand {

@@ -6,9 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import io.javakata.model.user.User;
 import lombok.RequiredArgsConstructor;
 
-/**
- * @author : kimjungmin Created on : 2025. 5. 1.
- */
 @Repository
 @RequiredArgsConstructor
 public class UserCommand {

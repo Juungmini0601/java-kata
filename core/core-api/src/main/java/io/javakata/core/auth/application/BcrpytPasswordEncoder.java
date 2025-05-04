@@ -3,9 +3,6 @@ package io.javakata.core.auth.application;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
-/**
- * @author : kimjungmin Created on : 2025. 5. 1.
- */
 @Component
 public class BcrpytPasswordEncoder implements PasswordEncoder {
 

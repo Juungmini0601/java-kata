@@ -5,9 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-/**
- * @author : kimjungmin Created on : 2025. 3. 23.
- */
 @Configuration
 @EnableJpaAuditing
 @EntityScan(basePackages = "io.javakata.storage.db.core")
