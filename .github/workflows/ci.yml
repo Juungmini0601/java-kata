@@ -43,6 +43,6 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/java-kata-api:latest
-            ${{ secrets.DOCKER_USERNAME }}/your-app-name:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/java-kata-api:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
