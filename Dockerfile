@@ -14,7 +14,6 @@ COPY lint.gradle .
 COPY core/ core/
 COPY messaging/ messaging/
 COPY storage/ storage/
-COPY src/ src/
 
 # 어플리케이션 빌드
 RUN chmod +x ./gradlew
