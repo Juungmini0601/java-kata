@@ -36,6 +36,38 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
 
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - java_kata_prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.listen-address=:9091'
+    ports:
+      - "9091:9091"
+    restart: always
+
+  grafana:
+    image: grafana/grafana:10.0.3
+    container_name: grafana
+    volumes:
+      - java_kata_grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    restart: always
+
 volumes:
   # Named Volume 컨테이너 내부 파일 시스템과 마운트 될 볼륨 위치를 알아서 잡아줌
   java_kata_mysql_volume:
@@ -43,3 +75,5 @@ volumes:
   java_kata_rabbitmq_etc_volume:
   java_kata_rabbitmq_data_volume:
   java_katarabbitmq_log_volume:
+  java_kata_prometheus_data:
+  java_kata_grafana_data:
