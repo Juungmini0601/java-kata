@@ -7,13 +7,13 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class SubmissionCommand {
+public class SubmissionJPAAdaptor implements SubmissionRepository {
 
-    private final SubmissionRepository submissionRepository;
+    private final SubmissionJPARepository submissionJPARepository;
 
     public Submission save(Submission submission) {
         SubmissionEntity submissionEntity = SubmissionEntity.from(submission);
-        return submissionRepository.save(submissionEntity).toModel();
+        return submissionJPARepository.save(submissionEntity).toModel();
     }
 
 }

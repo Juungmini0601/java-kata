@@ -52,7 +52,10 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             try {
                 TokenClaim tokenClaim = tokenService.parseToken(accessToken);
                 String role = tokenClaim.getRoles().get(0);
-                request.setAttribute(CurrentUser.Current_USER_KEY, new CurrentUser(tokenClaim.getSubject(), role));
+                Long userId = tokenClaim.getUserId();
+
+                request.setAttribute(CurrentUser.Current_USER_KEY,
+                        new CurrentUser(userId, tokenClaim.getSubject(), role));
             }
             catch (ExpiredJwtException e) {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());

@@ -10,14 +10,14 @@ import io.javakata.core.support.error.JavaKataException;
 import io.javakata.model.auth.Token;
 import io.javakata.model.auth.TokenClaim;
 import io.javakata.model.user.User;
-import io.javakata.storage.db.core.user.UserQuery;
+import io.javakata.storage.db.core.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final UserQuery userQuery;
+    private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -25,13 +25,13 @@ public class AuthService {
 
     @Transactional(readOnly = true)
     public Token signin(final String email, final String password) {
-        User user = userQuery.findByEmailOrElseThrow(email);
+        User user = userRepository.findByEmailOrElseThrow(email);
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new JavaKataException(ErrorType.AUTHENTICATION_ERROR, "로그인 실패");
         }
 
-        TokenClaim tokenClaim = new TokenClaim(user.getEmail(), List.of(user.getRole().toString()));
+        TokenClaim tokenClaim = new TokenClaim(user.getEmail(), user.getId(), List.of(user.getRole().toString()));
         return tokenService.generateToken(tokenClaim);
     }
 

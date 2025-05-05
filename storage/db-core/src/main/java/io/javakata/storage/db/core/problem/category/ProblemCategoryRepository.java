@@ -1,9 +1,19 @@
 package io.javakata.storage.db.core.problem.category;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
-public interface ProblemCategoryRepository extends JpaRepository<ProblemCategoryEntity, Long> {
+import io.javakata.model.problem.ProblemCategory;
 
-    boolean existsByName(final String name);
+public interface ProblemCategoryRepository {
+
+    ProblemCategory save(ProblemCategory category);
+
+    void deleteById(final Long categoryId);
+
+    List<ProblemCategory> findAll();
+
+    ProblemCategory findByIdOrElseThrow(final Long id);
+
+    void ifExistsByNameDoThrow(final String categoryName);
 
 }

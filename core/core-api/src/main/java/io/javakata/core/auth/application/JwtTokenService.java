@@ -33,9 +33,10 @@ public class JwtTokenService implements TokenService {
         Jws<Claims> claimsJws = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
 
         final String email = claimsJws.getPayload().getSubject();
+        final Long userId = claimsJws.getPayload().get("userId", Long.class);
         List<?> roles = claimsJws.getPayload().get("roles", List.class);
 
-        return new TokenClaim(email, roles.stream().map(Object::toString).toList());
+        return new TokenClaim(email, userId, roles.stream().map(Object::toString).toList());
     }
 
     private String generateAccessToken(TokenClaim tokenClaim) {
@@ -45,6 +46,7 @@ public class JwtTokenService implements TokenService {
 
         return Jwts.builder()
             .subject(tokenClaim.getSubject())
+            .claim("userId", tokenClaim.getUserId())
             .claim("roles", tokenClaim.getRoles())
             .issuedAt(new Date(now))
             .expiration(expireDate)
@@ -59,6 +61,7 @@ public class JwtTokenService implements TokenService {
 
         return Jwts.builder()
             .subject(tokenClaim.getSubject())
+            .claim("userId", tokenClaim.getUserId())
             .claim("roles", tokenClaim.getRoles())
             .issuedAt(new Date(now))
             .expiration(expireDate)

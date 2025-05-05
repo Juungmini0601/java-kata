@@ -12,6 +12,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import io.javakata.model.problem.Level;
+import io.javakata.model.problem.ProblemWithCategory;
 import io.javakata.storage.db.core.problem.category.QProblemCategoryEntity;
 import lombok.RequiredArgsConstructor;
 

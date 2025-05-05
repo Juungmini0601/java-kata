@@ -9,11 +9,14 @@ public class CurrentUser {
 
     public static final String Current_USER_KEY = "CURRENT_USER";
 
+    private Long id;
+
     private String email;
 
     private String role;
 
-    public CurrentUser(String email, String role) {
+    public CurrentUser(Long id, String email, String role) {
+        this.id = id;
         this.email = email;
         this.role = role;
     }

@@ -9,13 +9,13 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class TestCaseCommand {
+public class TestCaseJPAAdaptor implements TestCaseRepository {
 
-    private final TestCaseRepository testCaseRepository;
+    private final TestCaseJPARepository testCaseJPARepository;
 
     @Transactional
     public void deleteAllById(List<Long> ids) {
-        testCaseRepository.deleteAllById(ids);
+        testCaseJPARepository.deleteAllById(ids);
     }
 
 }

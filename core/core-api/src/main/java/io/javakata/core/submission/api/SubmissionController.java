@@ -24,9 +24,9 @@ public class SubmissionController {
     @PostMapping("/api/v1/problems/{problemId}/submit")
     public ApiResponse<?> submit(@PathVariable Long problemId, @Valid @RequestBody SubmitRequest request,
             @Auth CurrentUser currentUser) {
-        final String email = currentUser.getEmail();
+        final Long userId = currentUser.getId();
         SubmissionService.Command command = new SubmissionService.Command(request.language(), request.code());
-        submissionService.submit(problemId, command, email);
+        submissionService.submit(problemId, command, userId);
 
         return ApiResponse.success();
     }

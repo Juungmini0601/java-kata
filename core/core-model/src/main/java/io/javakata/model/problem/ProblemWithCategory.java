@@ -1,4 +1,4 @@
-package io.javakata.storage.db.core.problem;
+package io.javakata.model.problem;
 
 import java.time.LocalDateTime;
 

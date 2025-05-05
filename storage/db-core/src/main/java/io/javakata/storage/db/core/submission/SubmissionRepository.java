@@ -1,7 +1,9 @@
 package io.javakata.storage.db.core.submission;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import io.javakata.model.submission.Submission;
 
-public interface SubmissionRepository extends JpaRepository<SubmissionEntity, Long> {
+public interface SubmissionRepository {
+
+    Submission save(Submission submission);
 
 }

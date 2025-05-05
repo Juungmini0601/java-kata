@@ -11,6 +11,8 @@ public class TokenClaim {
 
     private String subject;
 
+    private Long userId;
+
     private List<String> roles;
 
 }
