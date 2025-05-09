@@ -31,7 +31,7 @@ public class SubmissionService {
 
         Submission submission = Submission.from(userId, command.language, Status.PENDING, command.code, problem);
         Submission savedSubmission = submissionRepository.save(submission);
-
+        // TODO 여기서 이벤트 발생하다 실패하면 실패 응답 나가겠지?
         eventPublisher.publishEvent(new SubmissionCreatedEvent(savedSubmission));
         return savedSubmission;
     }

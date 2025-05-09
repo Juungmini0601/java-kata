@@ -36,10 +36,10 @@ spring.config.activate.on-profile: prod
 
 jwt:
   access-token:
-    secret: ${jwt-prod-access.secret}
+    secret: ${jwt-prod-access-secret}
     # 1시간
     expire: 3600000
   refresh-token:
-    secret: ${jwt-prod-refresh.secret}
+    secret: ${jwt-prod-refresh-secret}
     # 7일
     expire: 604800000

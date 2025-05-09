@@ -1,4 +1,4 @@
-package io.javakata.core.config.aop;
+package io.javakata.core.support.aop;
 
 import java.util.Map;
 import java.util.stream.Collectors;

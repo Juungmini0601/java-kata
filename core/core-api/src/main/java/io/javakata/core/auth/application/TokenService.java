@@ -7,6 +7,8 @@ public interface TokenService {
 
     Token generateToken(TokenClaim tokenClaim);
 
-    TokenClaim parseToken(final String token);
+    TokenClaim parseAccessToken(final String accessToken);
+
+    TokenClaim parseRefreshToken(final String refreshToken);
 
 }

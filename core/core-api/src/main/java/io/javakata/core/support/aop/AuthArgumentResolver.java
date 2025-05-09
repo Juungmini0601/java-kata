@@ -1,4 +1,4 @@
-package io.javakata.core.config.aop;
+package io.javakata.core.support.aop;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;

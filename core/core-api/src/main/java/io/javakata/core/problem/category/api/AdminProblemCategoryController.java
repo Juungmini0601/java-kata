@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.javakata.core.config.aop.Admin;
 import io.javakata.core.problem.category.api.request.CreateProblemCategoryRequest;
 import io.javakata.core.problem.category.api.request.UpdateProblemCategoryRequest;
 import io.javakata.core.problem.category.api.response.ProblemCategoryResponse;
 import io.javakata.core.problem.category.application.ProblemCategoryService;
+import io.javakata.core.support.aop.Admin;
 import io.javakata.core.support.response.ApiResponse;
 import io.javakata.model.problem.ProblemCategory;
 import jakarta.validation.Valid;
