@@ -22,7 +22,7 @@ public class SubmissionProducer {
     public void produceSubmit(TestCaseSubmission submitTestCase) {
         Language language = submitTestCase.getLanguage();
         if (language == Language.JAVA_21) {
-            rabbitTemplate.convertAndSend(SUBMISSION_JAVA_21_QUEUE_NAME, submitTestCase);
+            rabbitTemplate.convertAndSend(SUBMISSION_QUEUE_NAME, submitTestCase);
             log.info("message produce: {}", submitTestCase);
         }
         else {

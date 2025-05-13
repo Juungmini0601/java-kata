@@ -8,6 +8,7 @@ import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -18,14 +19,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String SUBMISSION_JAVA_21_QUEUE_NAME = "submission.java.21";
+    public static final String SUBMISSION_QUEUE_NAME = "submission";
 
     // RabbitMQ 큐 정의
     // false 파라미터는 큐가 휘발성인지 영속성인지를 지정하는 옵션
     // false로 설정하면 서버가 종료되거나 재시작될 때 큐의 메시지가 사라짐
     @Bean
     public Queue queue() {
-        return new Queue(SUBMISSION_JAVA_21_QUEUE_NAME, true);
+        return new Queue(SUBMISSION_QUEUE_NAME, true);
     }
 
     /**
@@ -69,6 +70,14 @@ public class RabbitMQConfig {
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
+    }
+
+    @Bean
+    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setMessageConverter(jsonMessageConverter());
+        return factory;
     }
 
     // 메시지를 주고 받기 위한 빈 생성

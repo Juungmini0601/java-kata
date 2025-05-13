@@ -2,10 +2,14 @@ package io.javakata.model.submission;
 
 import io.javakata.model.language.Language;
 import io.javakata.model.testcase.TestCase;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Getter
 @Builder
