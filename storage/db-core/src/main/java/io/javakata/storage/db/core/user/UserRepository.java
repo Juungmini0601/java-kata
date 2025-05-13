@@ -1,18 +1,13 @@
 package io.javakata.storage.db.core.user;
 
-import java.util.Optional;
+import io.javakata.model.user.User;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+public interface UserRepository {
 
-/**
- * @author : kimjungmin Created on : 2025. 5. 1.
- */
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+    User save(User user);
 
-    boolean existsByEmail(String email);
+    void ifExistsByEmailDoThrow(final String email);
 
-    Optional<UserEntity> findByEmail(String email);
-
-    void deleteByEmail(final String email);
+    User findByEmailOrElseThrow(final String email);
 
 }

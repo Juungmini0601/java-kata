@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.javakata.core.config.aop.Auth;
 import io.javakata.core.submission.api.request.SubmitRequest;
 import io.javakata.core.submission.application.SubmissionService;
+import io.javakata.core.support.aop.Auth;
 import io.javakata.core.support.response.ApiResponse;
 import io.javakata.model.user.CurrentUser;
 import jakarta.validation.Valid;
@@ -24,9 +24,9 @@ public class SubmissionController {
     @PostMapping("/api/v1/problems/{problemId}/submit")
     public ApiResponse<?> submit(@PathVariable Long problemId, @Valid @RequestBody SubmitRequest request,
             @Auth CurrentUser currentUser) {
-        final String email = currentUser.getEmail();
+        final Long userId = currentUser.getId();
         SubmissionService.Command command = new SubmissionService.Command(request.language(), request.code());
-        submissionService.submit(problemId, command, email);
+        submissionService.submit(problemId, command, userId);
 
         return ApiResponse.success();
     }

@@ -7,18 +7,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
-/**
- * @author : kimjungmin Created on : 2025. 5. 2.
- */
 @Repository
 @RequiredArgsConstructor
-public class TestCaseCommand {
+public class TestCaseJPAAdaptor implements TestCaseRepository {
 
-    private final TestCaseRepository testCaseRepository;
+    private final TestCaseJPARepository testCaseJPARepository;
 
     @Transactional
     public void deleteAllById(List<Long> ids) {
-        testCaseRepository.deleteAllById(ids);
+        testCaseJPARepository.deleteAllById(ids);
     }
 
 }

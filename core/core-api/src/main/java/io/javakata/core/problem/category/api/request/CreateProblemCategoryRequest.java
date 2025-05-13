@@ -1,4 +1,4 @@
-package io.javakata.core.problem.api.request;
+package io.javakata.core.problem.category.api.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

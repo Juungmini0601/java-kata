@@ -1,4 +1,4 @@
-package io.javakata.core.config;
+package io.javakata.core.support.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

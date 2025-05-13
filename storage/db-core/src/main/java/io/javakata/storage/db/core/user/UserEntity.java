@@ -18,9 +18,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-/**
- * @author : kimjungmin Created on : 2025. 3. 17.
- */
 @ToString
 @Getter
 @SuperBuilder

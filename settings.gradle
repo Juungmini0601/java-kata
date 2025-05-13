@@ -14,3 +14,7 @@ include 'core:core-api'
 include 'core:core-model'
 include 'storage:redis-core'
 include 'messaging:rabbitmq-core'
+include 'support'
+include 'support:monitoring'
+findProject(':support:monitoring')?.name = 'monitoring'
+

@@ -58,17 +58,17 @@ public class ProblemEntity extends BaseEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String baseCode;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "memory_limit_mb")
     private Long memoryLimitMB; // MB
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "time_limit_ms")
     private Long timeLimitMS; // MS
 
     private Long categoryId; // 불필요한 연관관계 제거
 
     // TODO cascade, orphanRemoval 리뷰 받았던 내용이라 정리 필요
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "problem_id")
+    @JoinColumn(name = "problem_id", nullable = false)
     private List<TestCaseEntity> testCases;
 
     public static ProblemEntity from(Problem problem) {

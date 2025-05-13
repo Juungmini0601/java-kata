@@ -4,18 +4,13 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.javakata.core.notification.application.NotificationService;
 import io.javakata.core.submission.application.event.SubmissionCreatedEvent;
 import io.javakata.model.language.Language;
 import io.javakata.model.problem.Problem;
 import io.javakata.model.submission.Status;
 import io.javakata.model.submission.Submission;
-import io.javakata.model.submission.result.SubmissionTestCaseResult;
-import io.javakata.model.user.User;
-import io.javakata.redis.core.service.RedisService;
-import io.javakata.storage.db.core.problem.ProblemQuery;
-import io.javakata.storage.db.core.submission.SubmissionCommand;
-import io.javakata.storage.db.core.user.UserQuery;
+import io.javakata.storage.db.core.problem.ProblemRepository;
+import io.javakata.storage.db.core.submission.SubmissionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,47 +19,22 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class SubmissionService {
 
-    // TODO 새로운 클래스가 등장해야 될 거 같긴함(너무 크다)
+    private final ProblemRepository problemRepository;
 
-    private final ProblemQuery problemQuery;
-
-    private final UserQuery userQuery;
-
-    private final SubmissionCommand submissionCommand;
+    private final SubmissionRepository submissionRepository;
 
     private final ApplicationEventPublisher eventPublisher;
 
-    private final NotificationService notificationService;
-
-    private final RedisService redisService;
-
     @Transactional
-    public Submission submit(Long problemId, Command command, String email) {
-        Problem problem = problemQuery.findByIdWithTestCase(problemId);
-        User user = userQuery.findByEmailOrElseThrow(email);
+    public Submission submit(Long problemId, Command command, Long userId) {
+        Problem problem = problemRepository.findByIdWithTestCase(problemId);
 
-        Submission submission = Submission.from(user.getId(), command.language, Status.PENDING, command.code, problem);
-        Submission savedSubmission = submissionCommand.save(submission);
-
+        Submission submission = Submission.from(userId, command.language, Status.PENDING, command.code, problem);
+        Submission savedSubmission = submissionRepository.save(submission);
+        // TODO 여기서 이벤트 발생하다 실패하면 실패 응답 나가겠지?
         eventPublisher.publishEvent(new SubmissionCreatedEvent(savedSubmission));
         return savedSubmission;
     }
-
-    public void processTestCaseResult(SubmissionTestCaseResult result) {
-        if (notificationService.hasEmitter(result.getUserId())) {
-            String submitKey = "submission:" + result.getSubmitId() + ":remaining";
-            Long remaining = redisService.decrement(submitKey);
-            notificationService.send(result.getUserId(), "SUBMIT_RESULT", result);
-
-            // 키 값에 남아 있는 테스트 케이스의 개수가 0이면 채점 완료 메세지 추가로 전송
-            if (remaining != null && remaining == 0L) {
-                notificationService.send(result.getUserId(), "SUBMIT_COMPLETE", true);
-                redisService.delete(submitKey);
-            }
-        }
-    }
-
-    // TODO 클라이언트에서 집계된 데이터를 기반으로 성공 실패 데이터 업데이트 하는 로직 필요
 
     public record Command(Language language, String code) {
     }

@@ -1,4 +1,4 @@
-package io.javakata.core.config;
+package io.javakata.core.support.config;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import io.javakata.core.config.aop.AdminInterceptor;
-import io.javakata.core.config.aop.AuthArgumentResolver;
+import io.javakata.core.support.aop.AdminInterceptor;
+import io.javakata.core.support.aop.AuthArgumentResolver;
 import lombok.RequiredArgsConstructor;
 
 @Configuration

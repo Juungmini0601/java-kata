@@ -15,8 +15,8 @@ import io.javakata.core.problem.api.response.ProblemResponse;
 import io.javakata.core.problem.application.ProblemService;
 import io.javakata.core.support.response.ApiResponse;
 import io.javakata.model.problem.Problem;
+import io.javakata.model.problem.ProblemWithCategory;
 import io.javakata.storage.db.core.problem.ProblemListSearchParam;
-import io.javakata.storage.db.core.problem.ProblemWithCategory;
 import lombok.RequiredArgsConstructor;
 
 @RestController

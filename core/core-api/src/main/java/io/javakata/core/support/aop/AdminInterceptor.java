@@ -1,4 +1,4 @@
-package io.javakata.core.config.aop;
+package io.javakata.core.support.aop;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;

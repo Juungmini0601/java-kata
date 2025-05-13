@@ -9,12 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.javakata.model.problem.Level;
 import io.javakata.model.problem.Problem;
+import io.javakata.model.problem.ProblemWithCategory;
 import io.javakata.model.testcase.TestCase;
-import io.javakata.storage.db.core.problem.ProblemCommand;
 import io.javakata.storage.db.core.problem.ProblemListSearchParam;
-import io.javakata.storage.db.core.problem.ProblemQuery;
-import io.javakata.storage.db.core.problem.ProblemWithCategory;
-import io.javakata.storage.db.core.testcase.TestCaseCommand;
+import io.javakata.storage.db.core.problem.ProblemRepository;
+import io.javakata.storage.db.core.testcase.TestCaseRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
@@ -22,15 +21,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProblemService {
 
-    private final ProblemCommand problemCommand;
+    private final ProblemRepository problemRepository;
 
-    private final ProblemQuery problemQuery;
-
-    private final TestCaseCommand testCaseCommand;
+    private final TestCaseRepository testCaseRepository;
 
     @Transactional(readOnly = true)
     public Problem findById(final Long id) {
-        return problemQuery.findByIdWithTestCase(id);
+        return problemRepository.findByIdWithTestCase(id);
     }
 
     @Transactional
@@ -43,13 +40,13 @@ public class ProblemService {
 
         testCases.forEach(problem::addTestCase);
 
-        return this.problemCommand.save(problem);
+        return this.problemRepository.save(problem);
     }
 
     @Transactional
     public Problem updateProblem(UpdateProblemCommand problemCommand,
             List<UpdateTestCaseCommand> updateTestCaseCommands) {
-        Problem problem = problemQuery.findByIdWithTestCase(problemCommand.id);
+        Problem problem = problemRepository.findByIdWithTestCase(problemCommand.id);
         Problem updateInfo = problemCommand.toModel();
         List<TestCase> updateTestCases = updateTestCaseCommands.stream().map(UpdateTestCaseCommand::toModel).toList();
         updateTestCases.forEach(updateInfo::addTestCase);
@@ -61,23 +58,23 @@ public class ProblemService {
 
         problem.update(updateInfo);
 
-        testCaseCommand.deleteAllById(testCaseIdsToRemove);
-        return this.problemCommand.save(problem);
+        testCaseRepository.deleteAllById(testCaseIdsToRemove);
+        return this.problemRepository.save(problem);
     }
 
     @Transactional(readOnly = true)
     public Page<ProblemWithCategory> fetchProblemList(ProblemListSearchParam param) {
-        return problemQuery.getProblems(param);
+        return problemRepository.getProblems(param);
     }
 
     @Transactional(readOnly = true)
     public List<String> getDistinctLevels() {
-        return problemQuery.getDistinctLevels().stream().map(Object::toString).toList();
+        return problemRepository.getDistinctLevels().stream().map(Object::toString).toList();
     }
 
     @Transactional
     public void deleteProblem(final Long problemId) {
-        problemCommand.deleteById(problemId);
+        problemRepository.deleteById(problemId);
     }
 
     @Builder
