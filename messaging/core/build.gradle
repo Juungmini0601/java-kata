@@ -1,0 +1,7 @@
+dependencies {
+    // Redis Messaging용 이라서 풀어논거, messaging 바깥에서 이 모듈 임포트하면 안됨
+    api 'org.springframework.boot:spring-boot-starter-data-redis'
+    // Jackson for Redis
+    api 'com.fasterxml.jackson.core:jackson-databind'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+}

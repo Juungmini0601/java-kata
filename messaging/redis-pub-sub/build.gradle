@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(":core:core-model")
+    implementation project(":messaging:core")
+    implementation project(":storage:redis-core")
+}
