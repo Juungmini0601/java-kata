@@ -1,6 +1,15 @@
+spring.application.name: java-kata-consumer
+spring.profiles.active: local
+
+spring:
+  config:
+    import:
+      - monitoring.yml
+
 redis-stream:
   stream-key: submission
 
+---
 spring.config.activate.on-profile: local
 
 spring:
@@ -9,6 +18,7 @@ spring:
       host: ${storage.redis.local-host}
       port: 6379
       timeout: 3000
+
 ---
 spring.config.activate.on-profile: prod
 

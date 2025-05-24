@@ -36,10 +36,23 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image for core-api
         uses: docker/build-push-action@v4
         with:
           context: .
+          file: ./core/core-api/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/java-kata-api:latest
+            ${{ secrets.DOCKER_USERNAME }}/java-kata-api:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and push Docker image for core-worker
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./core/core-worker/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/java-kata-api:latest

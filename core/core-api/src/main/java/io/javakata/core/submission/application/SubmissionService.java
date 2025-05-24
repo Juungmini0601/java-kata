@@ -4,11 +4,11 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.javakata.core.submission.application.event.SubmissionCreatedEvent;
 import io.javakata.model.language.Language;
 import io.javakata.model.problem.Problem;
 import io.javakata.model.submission.Status;
 import io.javakata.model.submission.Submission;
+import io.javakata.model.submission.event.SubmissionCreatedEvent;
 import io.javakata.storage.db.core.problem.ProblemRepository;
 import io.javakata.storage.db.core.submission.SubmissionRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class SubmissionService {
 
         Submission submission = Submission.from(userId, command.language, Status.PENDING, command.code, problem);
         Submission savedSubmission = submissionRepository.save(submission);
-        // TODO 여기서 이벤트 발생하다 실패하면 실패 응답 나가겠지?
+
         eventPublisher.publishEvent(new SubmissionCreatedEvent(savedSubmission));
         return savedSubmission;
     }

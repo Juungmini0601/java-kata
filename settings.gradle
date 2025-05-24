@@ -9,11 +9,17 @@ pluginManagement {
 
 rootProject.name = 'java-kata'
 
-include 'storage:db-core'
 include 'core:core-api'
+include 'core:core-worker'
 include 'core:core-model'
+
+include 'storage:db-core'
 include 'storage:redis-core'
-include 'messaging:rabbitmq-core'
-include 'support'
+
 include 'support:monitoring'
-include 'core:core-consumer'
+include 'messaging:core'
+include 'messaging:redis-pub-sub'
+include 'messaging:redis-stream'
+include 'messaging:redis-stream:producer'
+include 'messaging:redis-stream:consumer'
+

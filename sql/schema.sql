@@ -82,13 +82,12 @@ CREATE TABLE `submissions`
 -- submission_results 테이블
 CREATE TABLE `submission_results`
 (
-    `id`                BIGINT PRIMARY KEY AUTO_INCREMENT,
-    `submission_id`     BIGINT                                                                                                                               NOT NULL,
-    `test_case_id`      BIGINT                                                                                                                               NOT NULL,
-    `status`            ENUM ('PENDING', 'RUNNING', 'SUCCESS', 'FAILED', 'TIME_EXCEED', 'MEMORY_EXCEED', 'COMPILE_ERROR', 'RUNTIME_ERROR', 'INTERNAL_ERROR') NOT NULL,
-    `output`            TEXT,
-    `error`             TEXT,
-    `execution_time_ms` BIGINT,
+    `id`            BIGINT PRIMARY KEY AUTO_INCREMENT,
+    `submission_id` BIGINT,
+    `user_id`       BIGINT                                                                                                                               NOT NULL,
+    `status`        ENUM ('PENDING', 'RUNNING', 'SUCCESS', 'FAILED', 'TIME_EXCEED', 'MEMORY_EXCEED', 'COMPILE_ERROR', 'RUNTIME_ERROR', 'INTERNAL_ERROR') NOT NULL,
+    `created_at`    DATETIME                                                                                                                             NOT NULL,
+    `updated_at`    DATETIME,
     FOREIGN KEY (`submission_id`) REFERENCES `submissions` (`id`),
-    FOREIGN KEY (`test_case_id`) REFERENCES `test_cases` (`id`)
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );

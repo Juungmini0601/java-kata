@@ -1,8 +1,0 @@
-spring.application.name: java-kata-api
-spring.profiles.active: local
-
-spring:
-  config:
-    import:
-      - rabbitmq-core.yml
-      - monitoring.yml

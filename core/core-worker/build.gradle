@@ -1,0 +1,8 @@
+bootJar.enabled = true
+jar.enabled = false
+
+dependencies {
+    implementation project(":support:monitoring")
+    implementation project(":core:core-model")
+    implementation project(":messaging:redis-stream:consumer")
+}
