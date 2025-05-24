@@ -29,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 // 1. JavaExecutor 각 케이스 별로 꼼꼼하게 처리해서 Pub/Sub 하기
 // 1. 테스트케이스를 수행하면서 배열 만들기
 // 2. 해당 배열을 기반으로 결과 메세지 만들어서 전송하기.
-// TODO 코드 리팩터링
 @Slf4j
 @Component
 @RequiredArgsConstructor
