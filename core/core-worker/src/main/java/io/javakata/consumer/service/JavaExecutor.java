@@ -1,5 +1,10 @@
 package io.javakata.consumer.service;
 
+import io.javakata.model.language.Language;
+import io.javakata.model.submission.EvaluationRequest;
+import io.javakata.model.submission.result.EvaluationResultSummary;
+import io.javakata.model.submission.result.TestCaseResult;
+import io.javakata.model.testcase.TestCase;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -11,17 +16,10 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
-
-import io.javakata.model.language.Language;
-import io.javakata.model.submission.EvaluationRequest;
-import io.javakata.model.submission.result.EvaluationResultSummary;
-import io.javakata.model.submission.result.TestCaseResult;
-import io.javakata.model.testcase.TestCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 // 지금은 Java만 컴파일 하기 때문에 이런 구조가 가능한데, 실제로 다중 언어를 지원하려면 이미지 사이즈가 커질 가능성이 있음.
 // 로직을 수행하다가 실패케이스가 하나라도 나온다면 실패니까 종료 시켜줄 것
@@ -82,7 +80,7 @@ public class JavaExecutor implements CodeExecutor {
                         process.destroyForcibly();
                         log.warn("timeout");
                         testCaseResults.add(TestCaseResult.withTimeExceed(testCase));
-                        break;
+                        continue;
                     }
 
                     long endTime = System.currentTimeMillis();
@@ -101,20 +99,17 @@ public class JavaExecutor implements CodeExecutor {
                         else {
                             // 오답인 경우
                             testCaseResults.add(TestCaseResult.withFail(testCase, result));
-                            break;
                         }
                     }
                     else {
                         // 수행 실패 케이스
                         String errorMessage = new String(process.getInputStream().readAllBytes());
                         testCaseResults.add(TestCaseResult.withRuntimeError(testCase, errorMessage));
-                        break;
                     }
                 }
                 catch (Exception e) {
                     log.error("error executing test case{}: {}", testCase.getId(), e.getMessage());
                     testCaseResults.add(TestCaseResult.withInternalError(testCase));
-                    break;
                 }
             }
 

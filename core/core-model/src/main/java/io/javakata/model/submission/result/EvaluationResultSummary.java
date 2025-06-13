@@ -1,9 +1,8 @@
 package io.javakata.model.submission.result;
 
-import java.util.List;
-
 import io.javakata.model.submission.EvaluationRequest;
 import io.javakata.model.submission.Status;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,24 +31,34 @@ public class EvaluationResultSummary {
     private List<TestCaseResult> testCaseResults;
 
     public static EvaluationResultSummary withInternalError(EvaluationRequest evaluationRequest) {
+        List<TestCaseResult> testCaseResults = evaluationRequest.getTestCases()
+            .stream()
+            .map(TestCaseResult::withInternalError)
+            .toList();
+
         return builder().submitId(evaluationRequest.getSubmitId())
             .userId(evaluationRequest.getUserId())
             .problemId(evaluationRequest.getProblemId())
             .status(Status.INTERNAL_ERROR)
             .passedCount(0)
-            .failedCount(0)
-            .testCaseResults(List.of())
+            .failedCount(testCaseResults.size())
+            .testCaseResults(testCaseResults)
             .build();
     }
 
     public static EvaluationResultSummary withCompileError(EvaluationRequest evaluationRequest) {
+        List<TestCaseResult> testCaseResults = evaluationRequest.getTestCases()
+            .stream()
+            .map(TestCaseResult::withCompileError)
+            .toList();
+
         return builder().submitId(evaluationRequest.getSubmitId())
             .userId(evaluationRequest.getUserId())
             .problemId(evaluationRequest.getProblemId())
             .status(Status.COMPILE_ERROR)
             .passedCount(0)
-            .failedCount(0)
-            .testCaseResults(List.of())
+            .failedCount(testCaseResults.size())
+            .testCaseResults(testCaseResults)
             .build();
     }
 

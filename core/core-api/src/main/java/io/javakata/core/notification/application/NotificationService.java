@@ -42,9 +42,6 @@ public class NotificationService {
     }
 
     public void sendResultSummary(EvaluationResultSummary result) {
-        log.info("notification 로직 호출");
-        log.info("result: {}", result);
-        log.info("emitters: {}", emitters.keySet());
         if (hasEmitter(result.getUserId())) {
             send(result.getUserId(), "SUBMIT_RESULT", result);
             send(result.getUserId(), "SUBMIT_COMPLETE", true);
